@@ -11,6 +11,7 @@
         "art-of-wifi/unifi-api-client": "^1.1",
         "doctrine/orm": "^3.2",
         "doctrine/dbal": "^4.1",
-        "symfony/cache": "^7.1"
+        "symfony/cache": "^7.1",
+        "vlucas/phpdotenv": "^5.6"
     }
 }

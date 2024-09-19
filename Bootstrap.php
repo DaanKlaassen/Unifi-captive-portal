@@ -5,23 +5,20 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 
 require_once "vendor/autoload.php";
+require "config/config.php";
 
-// // Create a simple "default" Doctrine ORM configuration for Attributes
+// Create a simple "default" Doctrine ORM configuration for Attributes
 $config = ORMSetup::createAttributeMetadataConfiguration(
     paths: [__DIR__ . '/src/Entity'],
     isDevMode: true,
 );
 
-// // or if you prefer XML
-// $config = ORMSetup::createXMLMetadataConfiguration(
-//    paths: [__DIR__ . '/config/xml'],
-//    isDevMode: true,
-// );
+echo $dbName;
 
 // configuring the database connection
 $connection = DriverManager::getConnection([
     'driver' => 'pdo_sqlite',
-    'path' => __DIR__ . '/database/db.sqlite',
+    'path' => __DIR__ . "/database/$dbName",
 ], $config);
 
 // obtaining the entity manager
