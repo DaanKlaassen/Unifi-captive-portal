@@ -1,0 +1,8 @@
+#php 
+vendor
+
+#env
+.env
+
+#database
+database/db.sqlite
