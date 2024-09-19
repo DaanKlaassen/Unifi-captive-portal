@@ -1,10 +1,12 @@
 <?php
 
-use App\Controllers\HomeController;
+use App\Controllers\PageController;
 use App\Router;
 
 $router = new Router();
 
-$router->get('/', HomeController::class, 'Index');
+// Define the route
+$router->get('/', PageController::class, 'index');
 
+// Dispatch the request
 $router->dispatch();

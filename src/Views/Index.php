@@ -7,6 +7,6 @@
     <title>GildeDevOps WiFi portal</title>
 </head>
 <body>
-    
+    <div class="HOI">HELLO</div>
 </body>
 </html>

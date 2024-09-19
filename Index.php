@@ -2,7 +2,6 @@
 
 require './vendor/autoload.php';
 
-$router = require '<div class="">
-<source>
-<Routes>
-<Index class="Route"></Index>.php';
+// Include the routes configuration file
+require './src/Routes/Index.php';
+
