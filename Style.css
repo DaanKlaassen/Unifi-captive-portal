@@ -5,8 +5,8 @@
 
 body {
 	font-family: Arial, sans-serif;
-	background-color: var(--backround);
-	display: flex;
+    background: linear-gradient(#DBEAFE, #BFDBFE);
+    display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
@@ -119,5 +119,5 @@ input[type='text'] {
 .close-button:hover {
     cursor: pointer;
     font-size: 1.5rem;
-    color: #9d00ab;
-}
+    color: #ab0000;
+}   
