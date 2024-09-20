@@ -6,6 +6,6 @@ class PageController
 {
     public function index()
     {
-        include './src/views/Index.php';
+        include __DIR__ . '/../views/Index.php';
     }
 }
