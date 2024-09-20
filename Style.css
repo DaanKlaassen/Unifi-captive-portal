@@ -1,6 +1,11 @@
+
+:root {
+    --backround: #e6f2ff;
+}
+
 body {
 	font-family: Arial, sans-serif;
-	background-color: #e6f2ff;
+	background-color: var(--backround);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -14,6 +19,23 @@ body {
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	width: 100%;
 	max-width: 600px;
+}
+.terms-container {
+    position: absolute;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    width: 100%;
+	max-width: 600px;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 h1 {
 	font-size: 1.5rem;
@@ -87,4 +109,15 @@ input[type='text'] {
 .connect-icon, .admin-icon {
     font-size: 1.5rem;
     margin-right: 0.5rem;
+}
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+}
+.close-button:hover {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #9d00ab;
 }
