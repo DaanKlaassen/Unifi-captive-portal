@@ -121,3 +121,11 @@ input[type='text'] {
     font-size: 1.5rem;
     color: #ab0000;
 }   
+
+.logo {
+	position: absolute;
+	right: 0px;
+	bottom: 3px;
+	scale: 0.75;
+	pointer-events: none;
+}	

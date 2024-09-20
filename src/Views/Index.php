@@ -3,7 +3,7 @@
 <head>     
     <meta charset="UTF-8">     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">     
     <title>WiFi Login</title> 
 </head>  
@@ -22,6 +22,11 @@
                 <label for="terms">Ik ga akkoord met de <a href="#" onclick="toggleTerms();">gebruikersvoorwaarden</a>.</label>             
             </div>             
 
+            <div class="error">
+                DOE HIER ERROR DING
+
+            </div>
+
             <div class="button-container">                 
                 <button type="submit" class="button connect"><i data-lucide="wifi" class="connect-icon"></i>Verbinden</button>                 
                 <button type="button" class="button admin"><i data-lucide="user" class="admin-icon"></i>Admin login</button>             
@@ -34,6 +39,13 @@
         <p>Door verbinding te maken met het wifi-netwerk ga je akkoord met de gebruikersvoorwaarden.</p>     
         <i data-lucide="x" onclick="toggleTerms();"  class="top-right close-button"></i>
     </div>      
+
+
+    <div class="logo">
+        <img src="img/gildedevops-logo.png" alt="GildeDevOps Logo">
+    </div>
+
+
 
     <?php     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {         
