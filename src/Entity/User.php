@@ -18,7 +18,7 @@ class User
     #[ORM\Column(type: 'string', length: 32)]
     private string $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $email;
 
     #[ORM\Column(type: 'date')]

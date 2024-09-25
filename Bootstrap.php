@@ -20,8 +20,6 @@ $config = ORMSetup::createAttributeMetadataConfiguration(
     isDevMode: true,
 );
 
-echo $dbName;
-
 // configuring the database connection
 $connection = DriverManager::getConnection([
     'driver' => 'pdo_sqlite',
