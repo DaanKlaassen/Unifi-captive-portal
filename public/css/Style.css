@@ -4,7 +4,7 @@
 
 body {
 	font-family: Arial, sans-serif;
-	background: linear-gradient(#DBEAFE, #BFDBFE);
+	background: linear-gradient(#dbeafe, #bfdbfe);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -53,7 +53,7 @@ label {
 	margin-bottom: 0.5rem;
 }
 
-input[type="text"] {
+input[type='text'] {
 	width: 100%;
 	padding: 0.5rem;
 	margin-bottom: 1rem;
@@ -205,7 +205,7 @@ input[type="text"] {
 	color: #b90000;
 	padding: 0.5rem;
 	background: #ffbeba;
-	display: none
+	display: none;
 }
 
 select {
@@ -214,4 +214,81 @@ select {
 	font-size: 16px;
 }
 
+/*Verify page*/
 
+p {
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+.code-inputs {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+.code-inputs input {
+	width: 2.5rem;
+	height: 2.5rem;
+	text-align: center;
+	font-size: 1.25rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	text-transform: uppercase;
+}
+.code-inputs .separator {
+	font-size: 1.5rem;
+	color: #999;
+	display: flex;
+	align-items: center;
+}
+.resend {
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+.resend a {
+	color: #0066cc;
+	text-decoration: none;
+}
+.verify-btn {
+	display: block;
+	width: 100%;
+	padding: 0.75rem;
+	background-color: #0066cc;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+.go-back  {
+	display: flex;
+	justify-content: center;
+	padding: 0.75rem;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-size: 1rem;
+}
+
+a {
+	text-decoration: none;
+	padding: 0.25rem;
+}
+
+/*succes en niet succes pagina's*/
+
+.checkmark {
+	color: #2ecc71;
+	font-size: 48px;
+}
+
+.countdown {
+	margin-top: 20px;
+	font-size: 1rem;
+}
+
+.select-none {
+	pointer-events: none;
+	user-select: none;
+}

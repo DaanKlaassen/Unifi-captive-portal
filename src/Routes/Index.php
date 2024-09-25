@@ -4,6 +4,7 @@ namespace App\Routes;
 
 use App\Controllers\PageController;
 use App\Controllers\FormController;
+use App\Controllers\VerifyController;
 use App\Routes\Router;
 
 function initializeRouter() {
@@ -19,7 +20,11 @@ $router = initializeRouter();
 
 // Define the route
 $router->get('/', PageController::class, 'index');
-$router->post('/submit-form', FormController::class, 'handleFormSubmission');
+$router->get('/verify', PageController::class, 'verify');
+$router->get('/submit-form', FormController::class, 'handleFormSubmission');
+$router->post('/process-form', VerifyController::class, 'processFormSubmission');
+$router->post('/verify-code', VerifyController::class, 'verifyCode');
+$router->get('/succes', PageController::class, 'succes');
 
 // Dispatch the request
 $router->dispatch();

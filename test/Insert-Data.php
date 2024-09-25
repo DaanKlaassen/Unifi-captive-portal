@@ -2,10 +2,9 @@
 
 require_once 'Bootstrap.php';
 
-use App\Entity\User;
 use App\Entity\Role;
+use App\Entity\User;
 use App\Entity\User_Device;
-use Doctrine\ORM\EntityManagerInterface;
 
 // Retrieve the entity manager from the bootstrap file
 $entityManager = require 'Bootstrap.php';
@@ -15,7 +14,7 @@ $data = [
     'email' => 'Gé.leurs@student.gildeopleidingen.nl',
     'devices' => 1,
     'role' => 'teacher',
-    'acceptedTOU' => true
+    'acceptedTOU' => true,
 ];
 
 // Create new User entity instance with test data
