@@ -1,8 +1,10 @@
 <?php
 
-require_once 'Bootstrap.php';  // Adjust the path if necessary
+require_once 'Bootstrap.php';
 
 use App\Entity\User;
+use App\Entity\Role;
+use App\Entity\User_Device;
 use Doctrine\ORM\EntityManagerInterface;
 
 // Retrieve the entity manager from the bootstrap file
@@ -12,31 +14,44 @@ $data = [
     'name' => 'Gé leurs',
     'email' => 'Gé.leurs@student.gildeopleidingen.nl',
     'devices' => 1,
-    'role' => 'user',
-    'mac' => 'BI:TC:HL:ES:SN:AB',
-    'ipAddress' => '192.168.1.69',
-    'createdAt' => (new \DateTime())->format('Y-m-d H:i:s'),
-    'updatedAt' => (new \DateTime())->format('Y-m-d H:i:s')
+    'role' => 'teacher',
+    'acceptedTOU' => true
 ];
-
-$jsonData = json_encode($data);
-$dataObject = json_decode($jsonData, false); // Decoding to object
 
 // Create new User entity instance with test data
 $user = new User();
-$user->setName($dataObject->name);
-$user->setEmail($dataObject->email);
-$user->setDevices($dataObject->devices);
-$user->setRole($dataObject->role);  // Ensure the role is 16 characters or less
-$user->setMac($dataObject->mac); // MAC address example
-$user->setIpAddress($dataObject->ipAddress);
+$user->setName($data['name']);
+$user->setEmail($data['email']);
 
-// Convert string dates to DateTime objects
-$user->setCreatedAt(new \DateTime($dataObject->createdAt));
-$user->setUpdatedAt(new \DateTime($dataObject->updatedAt));
+// Add devices
+for ($i = 0; $i < $data['devices']; $i++) {
+    $device = new User_Device();
+    $device->setDeviceMac('BI:TC:HL:ES:SN:' . str_pad($i, 2, '0', STR_PAD_LEFT));
+    $device->setDeviceIp('192.168.1.' . (69 + $i));
+
+    $user->addDevice($device);
+}
+
+// Find the role entity
+$role = $entityManager->getRepository(Role::class)->findOneBy(['role' => $data['role']]);
+if ($role) {
+    $user->setRole($role);
+} else {
+    echo "Role '{$data['role']}' not found.\n";
+    exit;
+}
+
+$user->setCreatedAt(new \DateTime());
+$user->setUpdatedAt(new \DateTime());
+$user->setAcceptedTOU($data['acceptedTOU']);
 
 // Persist the User entity
 $entityManager->persist($user);
-$entityManager->flush();
 
-echo "Test data inserted successfully.\n";
+// Flush users to database
+try {
+    $entityManager->flush();
+    echo "Test data inserted successfully.\n";
+} catch (\Exception $e) {
+    echo "Error flushing user: " . $e->getMessage() . "\n";
+}

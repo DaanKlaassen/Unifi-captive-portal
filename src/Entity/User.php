@@ -1,125 +1,140 @@
 <?php
 
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'Users')]
 class User
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'integer')]
-    #[ORM\GeneratedValue]
-    private int|null $id = null;
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private Uuid $id;
+
     #[ORM\Column(type: 'string', length: 32)]
     private string $name;
+
     #[ORM\Column(type: 'string', length: 255)]
     private string $email;
-    #[ORM\Column(type: 'integer')]
-    private string $devices;
-    #[ORM\Column(type: 'string', length: 16)]
-    private string $role;
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $mac;
-    #[ORM\Column(type: 'string', length: 15)]
-    private string $ipAddress;
+
     #[ORM\Column(type: 'date')]
     private \DateTime $createdAt;
+
     #[ORM\Column(type: 'date')]
     private \DateTime $updatedAt;
 
-        // Getters and Setters
+    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Role $role;
 
-        public function getId(): ?int
-        {
-            return $this->id;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: User_Device::class, cascade: ['persist', 'remove'])]
+    private Collection $devices;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $acceptedTOU;
+
+    public function __construct()
+    {
+        $this->id = Uuid::v4();
+        $this->devices = new ArrayCollection();
+    }
+
+    // Getters and Setters
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getRole(): Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(Role $role): self
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+    public function getDevices(): Collection
+    {
+        return $this->devices;
+    }
+
+    public function addDevice(User_Device $device): self
+    {
+        if (!$this->devices->contains($device)) {
+            $this->devices[] = $device;
+            $device->setUser($this);
         }
-    
-        public function setName(string $name): self
-        {
-            $this->name = $name;
-            return $this;
+
+        return $this;
+    }
+
+    public function removeDevice(User_Device $device): self
+    {
+        if ($this->devices->contains($device)) {
+            $this->devices->removeElement($device);
+            if ($device->getUser() === $this) {
+                $device->setUser(null);
+            }
         }
-    
-        public function getName(): string
-        {
-            return $this->name;
-        }
-    
-        public function setEmail(string $email): self
-        {
-            $this->email = $email;
-            return $this;
-        }
-    
-        public function getEmail(): string
-        {
-            return $this->email;
-        }
-    
-        public function setDevices(int $devices): self
-        {
-            $this->devices = $devices;
-            return $this;
-        }
-    
-        public function getDevices(): int
-        {
-            return $this->devices;
-        }
-    
-        public function setRole(string $role): self
-        {
-            $this->role = $role;
-            return $this;
-        }
-    
-        public function getRole(): string
-        {
-            return $this->role;
-        }
-    
-        public function setMac(string $mac): self
-        {
-            $this->mac = $mac;
-            return $this;
-        }
-    
-        public function getMac(): string
-        {
-            return $this->mac;
-        }
-    
-        public function setIpAddress(string $ipAddress): self
-        {
-            $this->ipAddress = $ipAddress;
-            return $this;
-        }
-    
-        public function getIpAddress(): string
-        {
-            return $this->ipAddress;
-        }
-    
-        public function setCreatedAt(\DateTime $createdAt): self
-        {
-            $this->createdAt = $createdAt;
-            return $this;
-        }
-    
-        public function getCreatedAt(): \DateTime
-        {
-            return $this->createdAt;
-        }
-    
-        public function setUpdatedAt(\DateTime $updatedAt): self
-        {
-            $this->updatedAt = $updatedAt;
-            return $this;
-        }
-    
-        public function getUpdatedAt(): \DateTime
-        {
-            return $this->updatedAt;
-        }
+
+        return $this;
+    }
+
+    public function getAcceptedTOU(): bool
+    {
+        return $this->acceptedTOU;
+    }
+
+    public function setAcceptedTOU(bool $acceptedTOU): self
+    {
+        $this->acceptedTOU = $acceptedTOU;
+        return $this;
+    }
 }
