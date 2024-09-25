@@ -6,11 +6,16 @@ use App\Controllers\PageController;
 use App\Controllers\FormController;
 use App\Routes\Router;
 
-$entityManager = require __DIR__ . '/../../Bootstrap.php';
+function initializeRouter() {
+	$entityManager = require __DIR__ . '/../../Bootstrap.php';
 
-$router = new Router();
+	$router = new Router();
+	$router->setDependencies([$entityManager]);
 
-$router->setDependencies([$entityManager]);
+	return $router;
+}
+
+$router = initializeRouter();
 
 // Define the route
 $router->get('/', PageController::class, 'index');

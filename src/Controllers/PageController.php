@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use Doctrine\ORM\EntityManagerInterface;
 
 class PageController
 {
