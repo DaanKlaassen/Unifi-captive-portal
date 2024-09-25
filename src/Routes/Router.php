@@ -38,7 +38,7 @@ class Router
                 $method = $action[1];
 
                 if (class_exists($controller) && method_exists($controller, $method)) {
-                    $controllerInstance = new $controller(...$this->dependencies);
+                    $controllerInstance = $this->createControllerInstance($controller);
                     $controllerInstance->$method();
                 } else {
                     echo 'Controller or method not found';
@@ -47,6 +47,19 @@ class Router
         } else {
             echo '404 Not Found';
         }
+    }
+
+    // Create controller instance with or without dependencies
+    protected function createControllerInstance($controller)
+    {
+        $reflection = new \ReflectionClass($controller);
+        $constructor = $reflection->getConstructor();
+
+        if ($constructor && $constructor->getNumberOfParameters() > 0) {
+            return $reflection->newInstanceArgs($this->dependencies);
+        }
+
+        return new $controller();
     }
 }
 ?>
