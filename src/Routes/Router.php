@@ -1,10 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Routes;
 
 class Router
 {
     protected $routes = [];
+    protected $dependencies = [];
 
     // Define a route
     public function get($route, $controller, $method)
@@ -12,10 +13,21 @@ class Router
         $this->routes['GET'][$route] = [$controller, $method];
     }
 
+    public function post($route, $controller, $method)
+    {
+        $this->routes['POST'][$route] = [$controller, $method];
+    }
+
+    // Set dependencies for the router
+    public function setDependencies(array $dependencies)
+    {
+        $this->dependencies = $dependencies;
+    }
+
     // Dispatch the request to the correct controller and method
     public function dispatch()
     {
-        $requestedRoute = '/'; // Change this based on your route structure
+        $requestedRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];
 
         if (isset($this->routes[$method][$requestedRoute])) {
@@ -26,7 +38,7 @@ class Router
                 $method = $action[1];
 
                 if (class_exists($controller) && method_exists($controller, $method)) {
-                    $controllerInstance = new $controller();
+                    $controllerInstance = new $controller(...$this->dependencies);
                     $controllerInstance->$method();
                 } else {
                     echo 'Controller or method not found';
@@ -37,3 +49,4 @@ class Router
         }
     }
 }
+?>

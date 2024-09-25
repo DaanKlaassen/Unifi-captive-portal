@@ -12,14 +12,14 @@
 <body>
     <div class="container" id="container">
         <h1>Vul je gegevens in om verbinding te maken met het wifi-netwerk.</h1>
-        <form id="wifiForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
+        <form id="wifiForm" action="/submit-form" method="post" novalidate onsubmit="return validateAndSubmitForm(event);">
             <label for="email" class="emailLabel">E-mailadres</label>
             <div class="email-input">
                 <input type="text" id="email" name="email" required>
                 <span class="domain">
                     <select name="domain">
                         <option value="student">@student.gildeopleidingen.nl</option>
-                        <option value="leraar">@rocgilde.nl</option>
+                        <option value="teacher">@rocgilde.nl</option>
                     </select>
                 </span>
             </div>
@@ -38,6 +38,9 @@
                 <button type="submit" class="button connect"><i data-lucide="wifi" class="connect-icon"></i>Verbinden</button>
                 <button type="button" class="button admin"><i data-lucide="user" class="admin-icon"></i>Admin login</button>
             </div>
+
+             <!-- Hidden field to capture IP address -->
+             <input type="hidden" id="ipAddress" name="ipAddress" value="">
         </form>
     </div>
     <div class="terms-container" id="terms-container">
@@ -102,69 +105,17 @@
     </div>
 
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src='/javascript/main.js'></script>
+    <script src='/javascript/form-validation.js'></script>
     <script>
-        lucide.createIcons();
-
-        window.onload = function() {
-            document.getElementById("terms-container").style.display = "none"; // Hide terms on load
-        };
-
-        function toggleTerms() {
-            const termsContainer = document.getElementById("terms-container");
-            const container = document.getElementById("container");
-            if (termsContainer.style.display === "none") {
-                termsContainer.style.display = "block";
-                container.style.display = "none";
-            } else {
-                termsContainer.style.display = "none";
-                container.style.display = "block";
-            }
-        }
-
-        // Custom form validation and error message display
-        document.getElementById('wifiForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting
-
-            // Get the email input and terms checkbox
-            const email = document.getElementById('email').value.trim();
-            const termsChecked = document.getElementById('terms').checked;
-            const emailError = document.getElementById('emailError');
-            const termsError = document.getElementById('termsError');
-            const attentionMessage = document.getElementById('attentionMessage');
-
-            // Clear previous errors
-            emailError.style.display = 'none';
-            emailError.innerHTML = '';
-            termsError.style.display = 'none';
-            termsError.innerHTML = '';
-            attentionMessage.style.display = 'none';
-
-            let errors = false;
-
-            // Validate email
-            if (!email) {
-                emailError.style.display = 'block';
-                emailError.innerHTML = 'Vul een geldig e-mailadres in.';
-                errors = true;
-            }
-
-            // Validate terms checkbox
-            if (!termsChecked) {
-                termsError.style.display = 'block';
-                termsError.innerHTML = 'Je moet akkoord gaan met de gebruikersvoorwaarden.';
-                errors = true;
-            }
-
-            // Display general attention message if there are errors
-            if (errors) {
-                attentionMessage.style.display = 'block';
-            } else {
-                // No errors, submit the form (or handle success)
-                this.submit();
-            }
-        });
+        // Capture the user's IP address and set it in the hidden field
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.ip);
+                document.getElementById('ipAddress').value = data.ip;
+            });
     </script>
-
 </body>
 
 </html>

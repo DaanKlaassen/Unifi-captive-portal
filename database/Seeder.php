@@ -28,6 +28,9 @@ function seedRoles(EntityManagerInterface $entityManager, array $roles) {
 // Seed roles
 seedRoles($entityManager, ['admin', 'teacher', 'student']);
 
+$entityManager->flush();
+sleep(1);
+
 // Seed users
 $userData = [
     [
