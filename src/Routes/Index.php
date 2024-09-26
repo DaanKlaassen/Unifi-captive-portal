@@ -22,9 +22,11 @@ $router = initializeRouter();
 $router->get('/', PageController::class, 'index');
 $router->get('/verify', PageController::class, 'verify');
 $router->get('/submit-form', FormController::class, 'handleFormSubmission');
+$router->get('/succes', PageController::class, 'succes');
+$router->get('/failed', PageController::class, 'failed');
+$router->get('/limiet', PageController::class, 'limiet');
 $router->post('/process-form', VerifyController::class, 'processFormSubmission');
 $router->post('/verify-code', VerifyController::class, 'verifyCode');
-$router->get('/succes', PageController::class, 'succes');
 
 // Dispatch the request
 $router->dispatch();

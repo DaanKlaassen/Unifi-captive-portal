@@ -4,21 +4,30 @@ namespace App\Controllers;
 
 session_start();
 
+use App\Models\VerifyModel;
+use App\Models\CheckMailModel;
+use Doctrine\ORM\EntityManagerInterface;
+
+require_once __DIR__ . '/../../bootstrap.php';
+
 class VerifyController
 {
+    private $verifyModel;
+    private $checkMailModel;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->verifyModel = new VerifyModel();
+        $this->checkMailModel = new CheckMailModel($entityManager);
+    }
+
     public function verifyCode()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $inputCodeArray = $_POST['verification_code'];
-            $inputCode = strtoupper(implode('', $inputCodeArray));
-            $sessionVerifyCode = strtoupper($_SESSION['verification_code']);
+            $data = $this->verifyModel->verifyCode($inputCodeArray);
 
-            echo $inputCode . "<br>";
-            echo $sessionVerifyCode . "<br>";
-
-            if ($inputCode === $sessionVerifyCode) {
-                // Verification successful, redirect to submit form
-                $_SESSION['verified'] = true;
+            if ($data === true) {
                 header('Location: /submit-form');
                 exit();
             } else {
@@ -28,28 +37,18 @@ class VerifyController
     }
     public function processFormSubmission()
     {
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Capture data from the form submission
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-            $domain = $_POST['domain'];
+            $fullEmail = $this->verifyModel->checkRole($_POST['domain'], $_POST['email']);
 
-            // Construct the full email
-            if ($domain === 'student') {
-                $fullEmail = $email . '@student.gildeopleidingen.nl';
-            } elseif ($domain === 'teacher') {
-                $fullEmail = $email . '@rocgilde.nl';
-            } else {
-                echo "Invalid domain selected";
-                return;
+            // check if the email isnt yet in the database and if the device count is less than put in the database
+            $emailExists = $this->checkMailModel->checkMail($fullEmail);
+            if ($emailExists) {
+                header('Location: /limiet');
+                exit();
             }
 
-            // Generate a random verification code (6 characters: numbers and uppercase letters)
-            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            $verificationCode = '';
-            for ($i = 0; $i < 6; $i++) {
-                $verificationCode .= $characters[rand(0, strlen($characters) - 1)];
-            }
+            $verificationCode = $this->verifyModel->generateCode();
 
             // Send the verification code to the user's email
             // Uncomment and implement the mail function according to your server setup

@@ -22,7 +22,7 @@ unset($_SESSION['form_submitted']);
         <form id="wifiForm" action="/process-form" method="post" novalidate onsubmit="return validateAndSubmitForm(event);">
             <label for="email" class="emailLabel">E-mailadres</label>
             <div class="email-input">
-                <input type="text" id="email" name="email" required>
+                <input type="text" id="email" name="email" required style="position:relative; z-index: 1;">
                 <span class="domain">
                     <select name="domain">
                         <option value="student">@student.gildeopleidingen.nl</option>

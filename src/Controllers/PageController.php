@@ -16,4 +16,12 @@ class PageController
     {
         include __DIR__ . '/../views/Succes.php';
     }
+    public function failed()
+    {
+        include __DIR__ . '/../views/Failed.php';
+    }
+    public function limiet()
+    {
+        include __DIR__ . '/../views/Limiet.php';
+    }
 }

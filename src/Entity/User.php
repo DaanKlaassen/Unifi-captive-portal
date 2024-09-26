@@ -7,13 +7,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="Users")
+ * @ORM\HasLifecycleCallbacks
+ */
 #[ORM\Entity]
 #[ORM\Table(name: 'Users')]
 class User
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
-    private Uuid $id;
+    private string $id;
 
     #[ORM\Column(type: 'string', length: 32)]
     private string $name;
@@ -34,6 +39,9 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: User_Device::class, cascade: ['persist', 'remove'])]
     private Collection $devices;
 
+    #[ORM\Column(type: 'integer')]
+    private int $maxDevices;
+
     #[ORM\Column(type: 'boolean')]
     private bool $acceptedTOU;
 
@@ -43,7 +51,28 @@ class User
         $this->devices = new ArrayCollection();
     }
 
-    // Getters and Setters
+    // Getters and Setters...
+
+    #[ORM\PostLoad]
+    public function onPostLoad()
+    {
+        // The ID should already be a Uuid object if it's properly mapped.
+        // However, if you face issues, ensure it's correctly set.
+        if (is_string($this->id)) {
+            $this->id = Uuid::fromString($this->id);
+        }
+    }
+
+    public function getId(): Uuid
+    {
+        return $this->id;
+    }
+
+    public function setId(Uuid $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function getName(): string
     {
@@ -124,6 +153,17 @@ class User
             }
         }
 
+        return $this;
+    }
+
+    public function getMaxDevices(): int
+    {
+        return $this->maxDevices;
+    }
+
+    public function setMaxDevices(int $maxDevices): self
+    {
+        $this->maxDevices = $maxDevices;
         return $this;
     }
 

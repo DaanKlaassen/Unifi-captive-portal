@@ -37,6 +37,7 @@ $userData = [
         'name' => 'Daan Klaassen',
         'email' => 'daan.klaassen@student.gildeopleidingen.nl',
         'devices' => 2,
+        'maxDevices' => 2,
         'role' => 'admin',
         'acceptedTOU' => true
     ],
@@ -47,6 +48,7 @@ foreach ($userData as $data) {
     $user = new User();
     $user->setName($data['name']);
     $user->setEmail($data['email']);
+    $user->setMaxDevices($data['maxDevices']);
     
     // Add devices
     for ($i = 0; $i < $data['devices']; $i++) {

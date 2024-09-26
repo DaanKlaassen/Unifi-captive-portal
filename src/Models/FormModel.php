@@ -18,10 +18,22 @@ class FormModel {
         $name = explode('@', $email)[0];
         $fullname = implode(' ', explode('.', $name));
 
+        switch($domain) {
+            case 'student':
+                $maxDevices = 1;
+                break;
+            case 'teacher':
+                $maxDevices = 3;
+                break;
+            default:
+                $maxDevices = 0;
+        }
+
         // Create a new User entity
         $user = new User();
         $user->setName($fullname);
         $user->setEmail($email);
+        $user->setMaxDevices($maxDevices);
         $user->setCreatedAt(new \DateTime());
         $user->setUpdatedAt(new \DateTime());
         $user->setAcceptedTOU(true);

@@ -31,7 +31,7 @@ class FormController
 
                 try {
                     $this->model->insertEmail($fullEmail, $domain, $macAddress, $ipAddress);
-                    header("Location: /success");
+                    header("Location: /succes");
                     exit();
                 } catch (\Exception $e) {
                     header("Location: /failed");
