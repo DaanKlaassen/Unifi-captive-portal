@@ -19,10 +19,6 @@ if (!$_SESSION['form_submitted']) {
     <div class="container">
         <h1>Verificatiecode invoeren</h1>
         <p>Voer de 6-cijferige code in die we naar uw e-mail hebben gestuurd</p>
-        <?php
-            session_start();
-            echo $_SESSION['verification_code']
-            ?>
                     <form method="POST" action="/verify-code">
                         <div class="code-inputs">
                             <?php

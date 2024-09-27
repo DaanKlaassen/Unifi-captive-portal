@@ -21,7 +21,15 @@ $mailConfig = [
     'HOSTMAILADDRESS' => $_ENV['HOST_MAIL_ADDRESS'],
 ];
 
+$unifiConfig = [
+    'CONTROLLER_USER' => $_ENV['CONTROLLER_USER'],
+    'CONTROLLER_PASSWORD' => $_ENV['CONTROLLER_PASSWORD'],
+    'CONTROLLER_URL' => $_ENV['CONTROLLER_URL'],
+    'SITE_ID' => $_ENV['SITE_ID'],
+];
+
 return [
     'dbName' => $dbName,
     'mailConfig' => $mailConfig,
+    'unifiConfig' => $unifiConfig,
 ];

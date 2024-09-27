@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+session_start();
+
+
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Entity\Role;
@@ -17,6 +20,7 @@ class FormModel {
     public function insertEmail($email, $domain, $macAddress, $ipAddress) {
         $name = explode('@', $email)[0];
         $fullname = implode(' ', explode('.', $name));
+        $_SESSION['fullname'] = $fullname;
 
         switch($domain) {
             case 'student':
