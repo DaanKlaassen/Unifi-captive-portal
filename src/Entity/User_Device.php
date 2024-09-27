@@ -3,15 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'User_Devices')]
 class User_Device
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'integer')]
-    #[ORM\GeneratedValue]
-    private int|null $id = null;
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private string|null $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $device_mac;
@@ -24,6 +24,11 @@ class User_Device
     private User $user;
 
     // Getters and Setters
+
+    public function __construct()
+    {
+        $this->id = Uuid::v4();
+    }
 
     public function getId(): ?int
     {
