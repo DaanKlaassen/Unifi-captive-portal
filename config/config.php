@@ -20,3 +20,8 @@ $mailConfig = [
     'HOSTMAILNAME' => $_ENV['HOST_MAIL_NAME'],
     'HOSTMAILADDRESS' => $_ENV['HOST_MAIL_ADDRESS'],
 ];
+
+return [
+    'dbName' => $dbName,
+    'mailConfig' => $mailConfig,
+];

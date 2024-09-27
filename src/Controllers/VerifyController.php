@@ -7,24 +7,27 @@ session_start();
 use App\Models\VerifyModel;
 use App\Models\CheckMailModel;
 use Doctrine\ORM\EntityManagerInterface;
-
-require_once __DIR__ . '/../../bootstrap.php';
+use App\Controllers\MailController;
+require_once __DIR__ . '/../../Bootstrap.php';
+require_once __DIR__ . '/../../config/Config.php';
 
 class VerifyController
 {
     private $verifyModel;
     private $checkMailModel;
+    private $mailController;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, $config)
     {
         $this->verifyModel = new VerifyModel();
         $this->checkMailModel = new CheckMailModel($entityManager);
+        $this->mailController = new MailController($config['mailConfig']);
     }
 
     public function verifyCode()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $inputCodeArray = $_POST['verification_code'];
+            $inputCodeArray = $_POST['verification_code'] ?? ''; // Added null coalescing
             $data = $this->verifyModel->verifyCode($inputCodeArray);
 
             if ($data === true) {
@@ -35,13 +38,14 @@ class VerifyController
             }
         }
     }
+
     public function processFormSubmission()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Capture data from the form submission
             $fullEmail = $this->verifyModel->checkRole($_POST['domain'], $_POST['email']);
 
-            // check if the email isnt yet in the database and if the device count is less than put in the database
+            // Check if the email isn't yet in the database and if the device count is less than put in the database
             $emailExists = $this->checkMailModel->checkMail($fullEmail);
             if ($emailExists) {
                 header('Location: /limiet');
@@ -49,10 +53,8 @@ class VerifyController
             }
 
             $verificationCode = $this->verifyModel->generateCode();
-
             // Send the verification code to the user's email
-            // Uncomment and implement the mail function according to your server setup
-            // mail($fullEmail, "Your verification code", "Your code is: $verificationCode");
+            $this->mailController->sendMail($fullEmail, "Your verification code", "Your code is: $verificationCode");
 
             // Store the verification code and form data in the session
             $_SESSION['verification_code'] = $verificationCode;
@@ -64,6 +66,14 @@ class VerifyController
             // Redirect to the verify page
             header('Location: /verify');
             exit();
+        }
+    }
+    public function resendCode()
+    {
+        if ($this->mailController->resend()) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false]);
         }
     }
 }

@@ -62,4 +62,3 @@ class Router
         return new $controller();
     }
 }
-?>
