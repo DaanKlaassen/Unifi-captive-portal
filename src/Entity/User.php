@@ -36,7 +36,7 @@ class User
     #[ORM\JoinColumn(nullable: false)]
     private Role $role;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: User_Device::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserDevice::class, cascade: ['persist', 'remove'])]
     private Collection $devices;
 
     #[ORM\Column(type: 'integer')]
@@ -134,7 +134,7 @@ class User
         return $this->devices;
     }
 
-    public function addDevice(User_Device $device): self
+    public function addDevice(UserDevice $device): self
     {
         if (!$this->devices->contains($device)) {
             $this->devices[] = $device;
@@ -144,7 +144,7 @@ class User
         return $this;
     }
 
-    public function removeDevice(User_Device $device): self
+    public function removeDevice(UserDevice $device): self
     {
         if ($this->devices->contains($device)) {
             $this->devices->removeElement($device);

@@ -30,6 +30,18 @@ class Router
         $requestedRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];
 
+        // Path to the public directory where your static files are located
+        $publicDir = __DIR__ . '/../../public';
+
+        // Check if the requested route corresponds to a file
+        $filePath = $publicDir . $requestedRoute;
+
+        if (file_exists($filePath) && !is_dir($filePath)) {
+            // Serve the static file
+            return $this->serveStaticFile($filePath);
+        }
+
+        // Continue with routing to controllers
         if (isset($this->routes[$method][$requestedRoute])) {
             $action = $this->routes[$method][$requestedRoute];
 
@@ -47,6 +59,18 @@ class Router
         } else {
             echo '404 Not Found';
         }
+    }
+
+    // Function to serve static files
+    protected function serveStaticFile($filePath)
+    {
+        // Get the file's MIME type
+        $mimeType = mime_content_type($filePath);
+        header('Content-Type: ' . $mimeType);
+        header('Content-Length: ' . filesize($filePath));
+        header('Cache-Control: max-age=3600');
+        readfile($filePath);
+        exit;
     }
 
     // Create controller instance with or without dependencies

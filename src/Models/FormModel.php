@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+;
 
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Entity\Role;
-use App\Entity\User_Device;
+use App\Entity\UserDevice;
 
-class FormModel {
+class FormModel 
+{
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager) {
@@ -50,8 +55,8 @@ class FormModel {
             throw new \Exception("Role not found");
         }
 
-        // Create a new User_Device entity
-        $device = new User_Device();
+        // Create a new UserDevice entity
+        $device = new UserDevice();
         $device->setDeviceMac($macAddress);
         $device->setDeviceIp($ipAddress);
         $user->addDevice($device);
@@ -63,4 +68,3 @@ class FormModel {
         return true;
     }
 }
-?>

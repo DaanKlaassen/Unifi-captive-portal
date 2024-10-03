@@ -6,26 +6,28 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 use Symfony\Component\Uid\Uuid;
+use App\Config\AppConfig;
 
 require_once "vendor/autoload.php";
-require "config/config.php";
+$appConfig = new AppConfig();
+$dbName = $appConfig->getDbName();
 
 if (!Type::hasType('uuid')) {
     Type::addType('uuid', 'Doctrine\DBAL\Types\StringType');
 }
 
 // Create a simple "default" Doctrine ORM configuration for Attributes
-$config = ORMSetup::createAttributeMetadataConfiguration(
+$doctrineConfig = ORMSetup::createAttributeMetadataConfiguration(
     paths: [__DIR__ . '/src/Entity'],
     isDevMode: true,
 );
 
-// configuring the database connection
+// Configuring the database connection
 $connection = DriverManager::getConnection([
     'driver' => 'pdo_sqlite',
-    'path' => __DIR__ . "/database/$dbName",
-], $config);
+    'path' => __DIR__ . "/database/{$dbName}",
+], $doctrineConfig);
 
-// obtaining the entity manager
-$entityManager = new EntityManager($connection, $config);
+// Obtaining the entity manager
+$entityManager = new EntityManager($connection, $doctrineConfig);
 return $entityManager;

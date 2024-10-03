@@ -2,26 +2,34 @@
 
 namespace App\Controllers;
 
-session_start();
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+;
+
+use App\Config\AppConfig;
 use App\Models\VerifyModel;
 use App\Models\CheckMailModel;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Controllers\MailController;
-require_once __DIR__ . '/../../Bootstrap.php';
-require_once __DIR__ . '/../../config/Config.php';
+require_once __DIR__ . '/../../bootstrap.php';
 
 class VerifyController
 {
     private $verifyModel;
     private $checkMailModel;
     private $mailController;
+    private AppConfig $appConfig;
+    private $rootURL;
 
-    public function __construct(EntityManagerInterface $entityManager, $config)
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->appConfig = new AppConfig();
         $this->verifyModel = new VerifyModel();
         $this->checkMailModel = new CheckMailModel($entityManager);
-        $this->mailController = new MailController($config['mailConfig']);
+        $this->mailController = new MailController($this->appConfig);
+        $this->rootURL = $this->appConfig->getRootURL();
     }
 
     public function verifyCode()
@@ -31,7 +39,7 @@ class VerifyController
             $data = $this->verifyModel->verifyCode($inputCodeArray);
 
             if ($data === true) {
-                header('Location: /submit-form');
+                header("Location: {$this->rootURL}/submit-form");
                 exit();
             } else {
                 echo "Invalid verification code";
@@ -48,7 +56,7 @@ class VerifyController
             // Check if the email isn't yet in the database and if the device count is less than put in the database
             $emailExists = $this->checkMailModel->checkMail($fullEmail);
             if ($emailExists) {
-                header('Location: /limiet');
+                header("Location: {$this->rootURL}/limiet");
                 exit();
             }
 
@@ -64,7 +72,7 @@ class VerifyController
             $_SESSION['form_submitted'] = true;
 
             // Redirect to the verify page
-            header('Location: /verify');
+            header("Location: {$this->rootURL}/verify");
             exit();
         }
     }

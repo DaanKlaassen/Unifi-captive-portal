@@ -4,20 +4,24 @@ namespace App\Controllers;
 
 use UniFi_API\Client;
 
-require_once __DIR__ . '/../../config/Config.php';
+use App\Config\AppConfig;
 
 class UnifiController
 {
     private $unifiClient;
     private $loggedInClient;
     private $currentUser;
+    private AppConfig $config;
 
-    public function __construct($config)
+    public function __construct(AppConfig $config)
     {
-        $unifiConfig = $config['unifiConfig'];
+        $this->config = $config;
+        $unifiConfig = $this->config->getUnifiConfig();
         $this->unifiClient = new Client($unifiConfig['CONTROLLER_USER'], $unifiConfig['CONTROLLER_PASSWORD'], $unifiConfig['CONTROLLER_URL'], $unifiConfig['SITE_ID']);
 
         $this->loggedInClient = $this->unifiClient->login();
+
+        echo $this->loggedInClient;
 
         $this->currentUser = $this->getCurrentUser();
     }
@@ -43,10 +47,12 @@ class UnifiController
     }
     public function getUserIp()
     {
+        echo $this->currentUser->ip;
         return $this->currentUser->ip;
     }
     public function getUserMac()
     {
+        echo $this->currentUser->mac;
         return $this->currentUser->mac;
     }
     public function authenticateUser($macAddress, $duration, $note, $fullname)
@@ -55,8 +61,11 @@ class UnifiController
             $auth_result  = $this->unifiClient->authorize_guest($macAddress, $duration);
             $getid_result = $this->unifiClient->stat_client($macAddress);
             $user_id      = $getid_result[0]->_id;
-            $note_result  = $this->unifiClient->set_sta_note($user_id, $note);
-            $name_result  = $this->unifiClient->set_sta_name($user_id, $fullname);
+            $this->unifiClient->set_sta_note($user_id, $note);
+            $this->unifiClient->set_sta_name($user_id, $fullname);
+
+            echo json_encode($auth_result, JSON_PRETTY_PRINT);
+
         } catch (\Throwable $th) {
             return false;
         }

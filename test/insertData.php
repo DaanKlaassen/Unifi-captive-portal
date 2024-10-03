@@ -1,13 +1,13 @@
 <?php
 
-require_once 'Bootstrap.php';
+require_once 'bootstrap.php';
 
 use App\Entity\Role;
 use App\Entity\User;
-use App\Entity\User_Device;
+use App\Entity\UserDevice;
 
 // Retrieve the entity manager from the bootstrap file
-$entityManager = require 'Bootstrap.php';
+$entityManager = require 'bootstrap.php';
 
 $data = [
     'name' => 'Gé leurs',
@@ -24,7 +24,7 @@ $user->setEmail($data['email']);
 
 // Add devices
 for ($i = 0; $i < $data['devices']; $i++) {
-    $device = new User_Device();
+    $device = new userDevice();
     $device->setDeviceMac('BI:TC:HL:ES:SN:' . str_pad($i, 2, '0', STR_PAD_LEFT));
     $device->setDeviceIp('192.168.1.' . (69 + $i));
 

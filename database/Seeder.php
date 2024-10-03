@@ -4,13 +4,13 @@ namespace App\Database;
 
 use App\Entity\Role;
 use App\Entity\User;
-use App\Entity\User_Device;
+use App\Entity\UserDevice;
 use Doctrine\ORM\EntityManagerInterface;
 
-require_once 'Bootstrap.php';
+require_once 'bootstrap.php';
 
 // Retrieve the entity manager from the bootstrap file
-$entityManager = require 'Bootstrap.php';
+$entityManager = require 'bootstrap.php';
 
 // Function to seed roles
 function seedRoles(EntityManagerInterface $entityManager, array $roles) {
@@ -52,7 +52,7 @@ foreach ($userData as $data) {
     
     // Add devices
     for ($i = 0; $i < $data['devices']; $i++) {
-        $device = new User_Device();
+        $device = new UserDevice();
         $device->setDeviceMac('11:11:11:11:11:1' . $i);
         $device->setDeviceIp('192.168.1.' . (170 + $i));
         $user->addDevice($device);

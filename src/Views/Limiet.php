@@ -1,11 +1,19 @@
+<?php
+use App\Config\AppConfig;
+
+$config = new AppConfig();
+
+$rootURL = $config->getRootURL();
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <title>Limiet Bereikt</title>
 
 </head>
@@ -20,15 +28,15 @@
                 Als u denkt dat dit onjuist is, neem <br />
                 dan contact op met een administrator.</p>
             <p>
-                <strong>Klik 
-                    <a href="/" class='link'>hier</a> 
+                <strong>Klik
+                    <a href="/" class='link'>hier</a>
                     om terug te gaan naar de home pagina.
                 </strong>
             </p>
         </div>
     </div>
     <div class="logo">
-        <img src="img/gildedevops-logo.png" alt="GildeDevOps Logo">
+        <img src="/img/gildedevops-logo.png" alt="GildeDevOps Logo">
     </div>
 </body>
 

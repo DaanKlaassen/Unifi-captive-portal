@@ -2,10 +2,15 @@
 
 namespace App\Controllers;
 
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+;
 
 use App\Models\FormModel;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Config\AppConfig;
 
 require_once __DIR__ . '/../../bootstrap.php';
 
@@ -13,11 +18,15 @@ class FormController
 {
     private $model;
     private $unifiController;
+    private AppConfig $appConfig;
+    private $rootURL;
 
-    public function __construct(EntityManagerInterface $entityManager, $config)
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->appConfig = new AppConfig();
         $this->model = new FormModel($entityManager);
-        $this->unifiController = new UnifiController($config);
+        $this->unifiController = new UnifiController($this->appConfig);
+        $this->rootURL = $this->appConfig->getRootURL();
     }
 
     public function handleFormSubmission()
@@ -34,11 +43,11 @@ class FormController
 
                 try {
                     $this->model->insertEmail($fullEmail, $domain, $macAddress, $ipAddress);
-                    header("Location: /succes");
+                    header("Location: {$this->rootURL}/success");
                     $this->unifiController->authenticateUser($macAddress, 2000, $fullEmail, $_SESSION['fullname']);
                     exit();
                 } catch (\Exception $e) {
-                    header("Location: /failed");
+                    header("Location: {$this->rootURL}/failed");
                     exit();
                 }
             } else {

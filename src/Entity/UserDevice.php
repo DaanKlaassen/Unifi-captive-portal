@@ -6,8 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'User_Devices')]
-class User_Device
+#[ORM\Table(name: 'UserDevices')]
+class UserDevice
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]

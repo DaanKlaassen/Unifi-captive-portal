@@ -1,11 +1,19 @@
+<?php
+use App\Config\AppConfig;
+
+$config = new AppConfig();
+
+$rootURL = $config->getRootURL();
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <title>Verificatie Succesvol</title>
 
 </head>
@@ -16,11 +24,11 @@
         <div class="checkmark select-none"> <img src="/img/check.svg" alt=""></div>
         <div class="countdown select-none" id="countdown">Dit venster sluit over 10 seconden</div>
         <div class="manual-close" style="display:none;" id="manual-close">
-        <p>Het venster kan niet automatisch worden gesloten. <br> <strong>Sluit dit venster handmatig.</strong></p>
-    </div>
+            <p>Het venster kan niet automatisch worden gesloten. <br> <strong>Sluit dit venster handmatig.</strong></p>
+        </div>
     </div>
     <div class="logo">
-        <img src="img/gildedevops-logo.png" alt="GildeDevOps Logo">
+        <img src="/img/gildedevops-logo.png" alt="GildeDevOps Logo">
     </div>
     <script>
         let seconds = 10;

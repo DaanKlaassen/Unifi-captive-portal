@@ -1,11 +1,19 @@
+<?php
+use App\Config\AppConfig;
+
+$config = new AppConfig();
+
+$rootURL = $config->getRootURL();
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <title>Verificatie Gefaald</title>
 
 </head>
@@ -16,11 +24,12 @@
         <div class="checkmark select-none"> <img src="/img/failed.svg" alt=""></div>
         <div class="countdown select-none" id="countdown">Je word terug gestuurd over 10 seconden</div>
         <div class="manual-close" style="display:none;" id="manual-close">
-        <p>Het venster kan niet automatisch worden omgeleid. <br> <strong>Klik <a href="/" class='link'>hier</a> om terug te gaan naar de home pagina.</strong></p>
-    </div>
+            <p>Het venster kan niet automatisch worden omgeleid. <br> <strong>Klik <a href="/" class='link'>hier</a> om
+                    terug te gaan naar de home pagina.</strong></p>
+        </div>
     </div>
     <div class="logo">
-        <img src="img/gildedevops-logo.png" alt="GildeDevOps Logo">
+        <img src="/img/gildedevops-logo.png" alt="GildeDevOps Logo">
     </div>
     <script>
         let seconds = 10;
@@ -35,7 +44,7 @@
                 window.location.href = '/';
 
                 // If the window wasn't redirected, show the manual redirect message
-                if (window.location.href.includes('/failed')) {
+                if (window.location.href.includes('<?php echo $rootURL; ?>/failed')) {
                     manualRedirect.style.display = 'block';
                     countdownElement.style.display = 'none';
                 }
