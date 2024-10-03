@@ -220,12 +220,14 @@ p {
 	text-align: center;
 	margin-bottom: 1.5rem;
 }
+
 .code-inputs {
 	display: flex;
 	justify-content: center;
 	gap: 0.5rem;
 	margin-bottom: 1.5rem;
 }
+
 .code-inputs input {
 	width: 2.5rem;
 	height: 2.5rem;
@@ -235,20 +237,24 @@ p {
 	border-radius: 4px;
 	text-transform: uppercase;
 }
+
 .code-inputs .separator {
 	font-size: 1.5rem;
 	color: #999;
 	display: flex;
 	align-items: center;
 }
+
 .resend {
 	text-align: center;
 	margin-bottom: 1.5rem;
 }
+
 .resend a {
 	color: #0066cc;
 	text-decoration: none;
 }
+
 .verify-btn {
 	display: block;
 	width: 100%;
@@ -315,4 +321,40 @@ a {
 	text-align: center;
 	margin-bottom: 1rem;
 	font-weight: bold;
+}
+
+/*admin pagina*/
+.sidebar {
+	width: 200px;
+	background-color: #8c9cb1;
+	color: white;
+	height: 100vh;
+	padding: 20px;
+}
+
+.main-content {
+	flex-grow: 1;
+	background-color: #e6f2ff;
+	padding: 20px;
+}
+
+.menu-item {
+	padding: 10px;
+	margin-bottom: 5px;
+	background-color: #a4b0c0;
+	cursor: pointer;
+}
+
+.user-icon {
+	width: 40px;
+	height: 40px;
+	background-color: #6e7c91;
+	border-radius: 50%;
+	margin-bottom: 20px;
+}
+
+.settings {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
 }

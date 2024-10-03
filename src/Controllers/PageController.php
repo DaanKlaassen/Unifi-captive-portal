@@ -30,4 +30,8 @@ class PageController
         header('Content-Type: text/css');
         readfile(__DIR__ . '/../public/css/style.css');
     }
+    public function adminPagina()
+    {
+        include __DIR__ . '/../views/AdminPagina.php';
+    }
 }
