@@ -326,35 +326,81 @@ a {
 /*admin pagina*/
 .sidebar {
 	width: 200px;
-	background-color: #8c9cb1;
+	background-color: rgba(0, 0, 0, 0.33);
 	color: white;
 	height: 100vh;
 	padding: 20px;
-}
-
-.main-content {
-	flex-grow: 1;
-	background-color: #e6f2ff;
-	padding: 20px;
+	position: fixed;
+	left: 0;
 }
 
 .menu-item {
-	padding: 10px;
-	margin-bottom: 5px;
-	background-color: #a4b0c0;
+	padding: 15px;
 	cursor: pointer;
+	border-top: 2px solid white;
+	width: 200px;
+	margin-bottom: -2px;
+	border-bottom: 2px solid white;
+	background-color: transparent;
+	border-left: transparent;
+	border-right: transparent;
+	font-size: 1.1rem;
+	color: white;
+}
+
+.menu-item:hover {
+	background-color: rgba(0, 0, 0, 0.36);
 }
 
 .user-icon {
-	width: 40px;
-	height: 40px;
-	background-color: #6e7c91;
+	width: 30px;
+	height: 30px;
+	background-color: #fff;
 	border-radius: 50%;
-	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.user-placeholder {
+	width: 100%;
+	height: 100%;
+	user-select: none;
+	pointer-events: none;
+}
+
+.user {
+	display: flex;
+	align-items: center;
+	margin: 20px 0 20px 0;
+}
+
+.voor-achternaam {
+	margin-left: 10px;
 }
 
 .settings {
 	position: absolute;
-	bottom: 20px;
+	bottom: 50px;
 	left: 20px;
+	width: 40px;
+	height: 40px;
+	background-color: #fff;
+	border-radius: 50%;
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: white;
+}
+
+.settings:hover {
+	background-color: #a3a3a3;
+	cursor: pointer;
+}
+
+.settings img {
+	width: 25px;
+}
+
+.settings-container {
+	display: flex;
 }
