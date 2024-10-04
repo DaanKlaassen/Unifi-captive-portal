@@ -16,10 +16,10 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 class FormController
 {
-    private $model;
-    private $unifiController;
+    private FormModel $model;
+    private UnifiController $unifiController;
     private AppConfig $appConfig;
-    private $rootURL;
+    private string $rootURL;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -29,7 +29,7 @@ class FormController
         $this->rootURL = $this->appConfig->getRootURL();
     }
 
-    public function handleFormSubmission()
+    public function handleFormSubmission(): void
     {
         if (isset($_SESSION['verified']) && $_SESSION['verified'] === true) {
             // Retrieve data from the session

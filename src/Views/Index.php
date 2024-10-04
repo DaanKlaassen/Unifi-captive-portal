@@ -37,6 +37,7 @@ unset($_SESSION['form_submitted']);
                     <select name="domain">
                         <option value="student">@student.gildeopleidingen.nl</option>
                         <option value="teacher">@rocgilde.nl</option>
+                        <option value="admin">Geen</option>
                     </select>
                 </span>
             </div>

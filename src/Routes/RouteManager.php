@@ -31,7 +31,7 @@ class RouteManager
         // Define the routes
         $this->router->get("{$this->rootURL}/", PageController::class, 'index');
         $this->router->get("{$this->rootURL}/verify", PageController::class, 'verify');
-        $this->router->get("{$this->rootURL}/succes", PageController::class, 'succes');
+        $this->router->get("{$this->rootURL}/success", PageController::class, 'success');
         $this->router->get("{$this->rootURL}/failed", PageController::class, 'failed');
         $this->router->get("{$this->rootURL}/limiet", PageController::class, 'limiet');
         $this->router->get("{$this->rootURL}/adminpagina", PageController::class, 'adminpagina');

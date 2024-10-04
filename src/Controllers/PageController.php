@@ -13,9 +13,9 @@ class PageController
     {
         include __DIR__ . '/../Views/verify.php';
     }
-    public function succes()
+    public function success()
     {
-        include __DIR__ . '/../Views/succes.php';
+        include __DIR__ . '/../Views/success.php';
     }
     public function failed()
     {

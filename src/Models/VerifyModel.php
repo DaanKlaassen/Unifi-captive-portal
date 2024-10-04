@@ -28,7 +28,7 @@ class VerifyModel
             }
     }
 
-    public function generateCode()
+    public function generateCode(): string
     {
         // Generate a random verification code (6 characters: numbers and uppercase letters)
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -39,16 +39,18 @@ class VerifyModel
         return $verificationCode;
     }
 
-    public function checkRole($role, $email)
+    public function checkRole($role, $email): bool|string
     {
         // Construct the full email
         if ($role === 'student') {
             return "{$email}@student.gildeopleidingen.nl";
         } elseif ($role === 'teacher') {
             return "{$email}@rocgilde.nl";
+        } elseif ($role === 'admin'){
+            return "{$email}";
         } else {
             echo "Invalid domain selected";
-            return;
+            return false;
         }
     }
 }
