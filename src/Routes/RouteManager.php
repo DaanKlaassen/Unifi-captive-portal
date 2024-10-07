@@ -34,7 +34,7 @@ class RouteManager
         $this->router->get("{$this->rootURL}/success", PageController::class, 'success');
         $this->router->get("{$this->rootURL}/failed", PageController::class, 'failed');
         $this->router->get("{$this->rootURL}/limiet", PageController::class, 'limiet');
-        $this->router->get("{$this->rootURL}/adminpagina", PageController::class, 'adminpagina');
+        $this->router->get("{$this->rootURL}/admin", PageController::class, 'admin');
         $this->router->get("{$this->rootURL}/submit-form", FormController::class, 'handleFormSubmission');
         $this->router->post("{$this->rootURL}/resend-code", VerifyController::class, 'resendCode');
         $this->router->post("{$this->rootURL}/process-form", VerifyController::class, 'processFormSubmission');

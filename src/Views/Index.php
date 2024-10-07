@@ -1,5 +1,9 @@
 <?php
 use App\Config\AppConfig;
+use App\Models\ClearSession;
+
+$clearSession = new ClearSession();
+$clearSession->clearSession();
 
 $config = new AppConfig();
 

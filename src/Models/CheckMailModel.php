@@ -21,11 +21,8 @@ class CheckMailModel
 
         // Check if the user exists and return true if they have max devices
         if ($user) {
-            if ($user->getDevices() === $user->getMaxDevices()) {
-                return $user;
-            }
+            return $user;
         }
-
         return false;
     }
 }

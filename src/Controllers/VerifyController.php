@@ -37,11 +37,11 @@ class VerifyController
             $data = $this->verifyModel->verifyCode($inputCodeArray);
 
             if ($data === true) {
-                if($_SESSION['isAdmin']) {
+                if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
                     header("Location: $this->rootURL/admin");
-                    exit();
+                } else {
+                    header("Location: $this->rootURL/submit-form");
                 }
-                header("Location: $this->rootURL/submit-form");
                 exit();
             } else {
                 echo "Invalid verification code";
@@ -57,12 +57,23 @@ class VerifyController
 
             // Check if the email isn't yet in the database and if the device count is less than put in the database
             $user = $this->checkMailModel->checkMail($fullEmail);
-            if ($user && $user['role'] === 'student') {
-                header("Location: $this->rootURL/limiet");
-                exit();
-            } else if ($user && $user['role'] === 'admin') {
+            $userRole = $user->getRole();
+
+            if ($userRole->getId() === 1) {
                 $_SESSION['isAdmin'] = true;
+            } else {
+                $_SESSION['isAdmin'] = false;
             }
+
+            $deviceCount = count($user->getDevices());
+            $maxDevices = $user->getMaxDevices();
+            if($_SESSION['isAdmin'] === false) {
+                if ($deviceCount === $maxDevices) {
+                    header("Location: $this->rootURL/limiet");
+                    exit();
+                }
+            }
+            error_log("Device count: $deviceCount, Max devices: $maxDevices");
 
             $verificationCode = $this->verifyModel->generateCode();
             // Send the verification code to the user's email
