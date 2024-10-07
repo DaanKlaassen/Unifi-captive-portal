@@ -29,4 +29,8 @@ class PageController
     {
         include __DIR__ . '/../views/admin.php';
     }
+    public function export()
+    {
+        include __DIR__ . '/../views/export.php';
+    }
 }

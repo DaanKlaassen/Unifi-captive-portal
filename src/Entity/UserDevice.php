@@ -30,14 +30,14 @@ class UserDevice
         $this->id = Uuid::v4();
     }
 
-    public function getId(): ?int
+    public function getId(): string
     {
         return $this->id;
     }
 
     public function getDeviceMac(): string
     {
-        return $this->device_mac;
+        return $this->device_mac || '';
     }
 
     public function setDeviceMac(string $device_mac): self
@@ -48,7 +48,7 @@ class UserDevice
 
     public function getDeviceIp(): string
     {
-        return $this->device_ip;
+        return $this->device_ip || '';
     }
 
     public function setDeviceIp(string $device_ip): self

@@ -63,7 +63,7 @@ class User
         }
     }
 
-    public function getId(): Uuid
+    public function getId(): String
     {
         return $this->id;
     }
@@ -96,9 +96,10 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        $createdAt = $this->createdAt;
+        return $createdAt->format('Y-m-d H:i:s');
     }
 
     public function setCreatedAt(\DateTime $createdAt): self
@@ -107,9 +108,10 @@ class User
         return $this;
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt(): string
     {
-        return $this->updatedAt;
+        $updatedAt = $this->updatedAt;
+        return $updatedAt->format('Y-m-d H:i:s');
     }
 
     public function setUpdatedAt(\DateTime $updatedAt): self
