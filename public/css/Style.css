@@ -377,7 +377,7 @@ a {
 	margin-left: 10px;
 }
 
-.settings {
+.settings, .exit {
 	position: absolute;
 	bottom: 50px;
 	left: 20px;
@@ -392,15 +392,29 @@ a {
 	border: white;
 }
 
+.settings {
+	bottom: 100px;
+}
+
 .settings:hover {
 	background-color: #a3a3a3;
 	cursor: pointer;
 }
 
-.settings img {
+.settings img{
 	width: 25px;
 }
 
-.settings-container {
+.button-container {
 	display: flex;
+}
+
+.exit a img {
+	width: 25px;
+}
+
+.exit a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

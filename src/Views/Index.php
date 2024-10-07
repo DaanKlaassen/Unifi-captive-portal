@@ -59,7 +59,7 @@ unset($_SESSION['form_submitted']);
 
             <div class="button-container">
                 <button type="submit" class="button connect"><i data-lucide="wifi" class="connect-icon"></i>Verbinden</button>
-                <a href="<?php echo $rootURL; ?>/adminpagina"><button type="button" class="button admin"><i data-lucide="user" class="admin-icon"></i>Admin login</button></a>
+                <a href="<?php echo $rootURL; ?>/admin"><button type="button" class="button admin"><i data-lucide="user" class="admin-icon"></i>Admin login</button></a>
             </div>
         </form>
     </div>

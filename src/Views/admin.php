@@ -1,3 +1,11 @@
+<?php
+use App\Config\AppConfig;
+
+$config = new AppConfig();
+
+$rootURL = $config->getRootURL();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,9 +41,12 @@
             <button class="menu-item">Export</button>
         </div>
 
-        <div class="settings-container">
+        <div class="buttons-container">
             <button class="settings">
                 <img src="/img/settingsknop.svg" alt="settings Icon" class="settings-icon">
+            </button>
+            <button class="exit"> <a href="<?php echo $rootURL; ?>/">
+                    <img src="/img/log-out.svg" alt="exit Icon" class="exit-icon"></a>
             </button>
         </div>
     </div>
