@@ -330,7 +330,7 @@ a {
 	color: white;
 	height: 100vh;
 	padding: 20px;
-	position: fixed;
+	position: relative;
 	left: 0;
 }
 
@@ -421,4 +421,19 @@ a {
 
 .active {
 	background-color: rgba(0, 0, 0, 0.36);
+}
+
+.export-section {
+	display: flex;
+	flex-direction: column;
+	padding: 3rem;
+	background-color: #fff;
+	height: 250px;
+}
+
+.export-container {
+	display: flex;
+	flex-direction: row;
+	width: 100vw;
+	height: 100vh;
 }

@@ -35,7 +35,7 @@ $rootURL = $config->getRootURL();
     </div>
 
     <div class="menu-items">
-        <button class="menu-item">Dashboard</button>
+        <button class="menu-item active">Dashboard</button>
         <button class="menu-item">Database</button>
         <button class="menu-item">Users</button>
         <button class="menu-item">Import</button>
