@@ -37,7 +37,7 @@ class CSVController
         }
     }
 
-    public function importCSV(): void
+    public function importCSV(): string|bool
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $jsonData = file_get_contents('php://input');
@@ -45,18 +45,28 @@ class CSVController
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 http_response_code(400);
-                echo json_encode(['message' => 'Invalid JSON data.']);
-                return;
+                return json_encode(['message' => 'Invalid JSON data.']);
+            }
+
+            foreach ($data as &$item) {
+                if (isset($item['email'])) {
+                    $email = $item['email'];
+                    $nameParts = explode('@', $email)[0];
+                    $fullName = str_replace('.', ' ', $nameParts);
+                    $item['name'] = $fullName;
+                }
             }
 
             $result = $this->CSVModel->importCSV($data);
 
-            if ($result === false) {
-                http_response_code(500);
-                echo json_encode(['message' => 'Failed to import data.']);
-            } else {
+            if ($result === true) {
                 http_response_code(200);
                 echo json_encode(['message' => 'Data imported successfully.']);
+                exit();
+            } else {
+                http_response_code(500);
+                echo json_encode(['message' => "An error occurred while importing data:" . $result]);
+                exit();
             }
         }
     }

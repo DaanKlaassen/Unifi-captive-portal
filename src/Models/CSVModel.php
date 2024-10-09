@@ -8,7 +8,7 @@ use App\Entity\User;
 
 class CSVModel
 {
-    private $entityManager;
+    private mixed $entityManager;
     private array $csvDataArray = [];
 
     public function __construct()
@@ -69,22 +69,48 @@ class CSVModel
         return json_encode(['message' => 'No data to export.']);
     }
 
-    public function importCSV(): void
+    public function importCSV($data): bool | string
     {
         if (empty($data)) {
-            return;
+            return false;
         }
 
+        $errorData = [];
+
         foreach ($data as $item) {
-            if (isset($item['email'])) {
-            $user = new User();
-            $user->setEmail($item['email']);
-            // Set other properties as needed
-            $this->entityManager->persist($user);
-            echo 'User with email ' . $item['email'] . ' added.' . PHP_EOL;
+            $item = array_map('trim', $item);
+            if (isset($item['email'], $item['maxDevices'], $item['name'])) {
+                $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $item['email']]);
+                if ($existingUser) {
+                    $errorData[] = "User with email " . $item['email'] . " already exists.";
+                    continue;
+                }
+
+                $user = new User();
+                $user->setEmail($item['email']);
+                $role = $this->entityManager->getRepository(Role::class)->findOneBy(['role' => strtolower('student')]);
+                $user->setRole($role);
+                $user->setName($item['name']);
+                $user->setAcceptedTOU(false);
+                $user->setCreatedAt(new \DateTime());
+                $user->setUpdatedAt(new \DateTime());
+                $user->setMaxDevices(intval($item['maxDevices']));
+                // Set other properties as needed
+                $this->entityManager->persist($user);
+                $errorData[] = "User with email " . $item['email'] . " added.";
+            } else {
+                if($item['email'] === "") {
+                    continue;
+                } else {
+                    $errorData[] = "Invalid data for user with email " . $item['email'];
+                }
             }
         }
 
         $this->entityManager->flush();
+        if(empty($errorData)) {
+            return true;
+        }
+        return json_encode($errorData);
     }
 }

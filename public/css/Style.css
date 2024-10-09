@@ -452,7 +452,7 @@ a {
 	font-size: 1rem;
 }
 
-.export-button:hover .import-button:hover {
+.export-button:hover, .import-button:hover {
 	transform: translateY(-3px);
 }
 
@@ -462,7 +462,7 @@ a {
 	padding: 3rem;
 }
 
-.export-main-section .import-main-section {
+.export-main-section, .import-main-section {
 	display: flex;
 	justify-content: center;
 	align-items: center;

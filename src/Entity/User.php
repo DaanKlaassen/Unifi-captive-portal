@@ -20,7 +20,7 @@ class User
     #[ORM\Column(type: 'uuid', unique: true)]
     private string $id;
 
-    #[ORM\Column(type: 'string', length: 32)]
+    #[ORM\Column(type: 'string', length: 32, nullable: true)]
     private string $name;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
@@ -37,6 +37,7 @@ class User
     private Role $role;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserDevice::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
     private Collection $devices;
 
     #[ORM\Column(type: 'integer')]
