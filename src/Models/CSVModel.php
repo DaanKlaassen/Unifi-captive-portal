@@ -79,7 +79,7 @@ class CSVModel
 
         foreach ($data as $item) {
             $item = array_map('trim', $item);
-            if (isset($item['email'], $item['maxDevices'], $item['name'])) {
+            if (isset($item['email'], $item['maxDevices'], $item['name']) && $item['email'] !== "" && $item['maxDevices'] !== "" && $item['name'] !== "") {
                 $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $item['email']]);
                 if ($existingUser) {
                     $errorData[] = "User with email " . $item['email'] . " already exists.";
