@@ -36,7 +36,9 @@ $rootURL = $config->getRootURL();
             </div>
 
             <div class="menu-items">
-                <button class="menu-item">Dashboard</button>
+                <a href="<?php echo $rootURL; ?>/admin">
+                    <button class="menu-item">Dashboard</button>
+                </a>
                 <button class="menu-item">Database</button>
                 <button class="menu-item">Users</button>
                 <button class="menu-item">Import</button>
@@ -54,22 +56,23 @@ $rootURL = $config->getRootURL();
                 </button>
             </div>
         </div>
-
+    <div class="export-main-section">
         <div class="export-section">
             <h1>Exporteer de database naar een CSV bestand</h1>
             <form id="exportForm">
-                <label>
-                    <input type="checkbox" name="users" value="true"> Users
+                <label class="export-label">
+                    <input type="checkbox" name="users" value="true" class="export-checkbox"> Users
                 </label>
-                <label>
-                    <input type="checkbox" name="roles" value="true"> Roles
+                <label class="export-label">
+                    <input type="checkbox" name="roles" value="true" class="export-checkbox"> Roles
                 </label>
-                <label>
-                    <input type="checkbox" name="userDevices" value="true"> User Devices
+                <label class="export-label">
+                    <input type="checkbox" name="userDevices" value="true" class="export-checkbox"> User Devices
                 </label>
                 <button type="submit" id="exportButton" class="export-button">Exporteer</button>
             </form>
         </div>
+    </div>
     </div>
     <div class="logo">
         <img src="../img/gildedevops-logo.png" alt="GildeDevOps Logo">

@@ -325,13 +325,13 @@ a {
 
 /*admin pagina*/
 .sidebar {
-	width: 200px;
+	max-width: 200px;
 	background-color: rgba(0, 0, 0, 0.33);
 	color: white;
-	height: 100vh;
 	padding: 20px;
 	position: relative;
 	left: 0;
+	flex: 1;
 }
 
 .menu-item {
@@ -429,9 +429,43 @@ a {
 	padding: 3rem;
 	background-color: #fff;
 	height: 250px;
+	border-radius: 10px;
 }
 
-.export-container {
+.export-label, .export-checkbox {
+	font-size: 1rem;
+	margin-bottom: 1rem;
+}
+
+.export-button {
+	padding: 0.5rem 1rem;
+	margin: 0 auto;
+	border: solid 1px #353535;
+	border-radius: 4px;
+	cursor: pointer;
+	background-color: transparent;
+	color: #050505;
+	font-size: 1rem;
+}
+
+.export-button:hover {
+	transform: translateY(-3px);
+}
+
+.admin-section {
+	display: flex;
+	flex-direction: column;
+	padding: 3rem;
+}
+
+.export-main-section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1 1;
+}
+
+.export-container, .admin-container {
 	display: flex;
 	flex-direction: row;
 	width: 100vw;
