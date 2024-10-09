@@ -279,7 +279,13 @@ p {
 
 a {
 	text-decoration: none;
-	padding: 0.25rem;
+	padding-top: 0.25rem;
+}
+
+.menu-items a {
+	text-decoration: none;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
 }
 
 /*succes en niet succes pagina's*/
@@ -337,16 +343,14 @@ a {
 .menu-item {
 	padding: 15px;
 	cursor: pointer;
-	border-top: 2px solid white;
+	border-top: -12px solid white;
 	width: 200px;
-	margin-bottom: -2px;
-	border-bottom: 2px solid white;
 	background-color: transparent;
 	border-left: transparent;
 	border-right: transparent;
 	font-size: 1.1rem;
 	color: white;
-}
+  }
 
 .menu-item:hover {
 	background-color: rgba(0, 0, 0, 0.36);
@@ -423,7 +427,7 @@ a {
 	background-color: rgba(0, 0, 0, 0.36);
 }
 
-.export-section {
+.export-section, .import-section{
 	display: flex;
 	flex-direction: column;
 	padding: 3rem;
@@ -432,12 +436,12 @@ a {
 	border-radius: 10px;
 }
 
-.export-label, .export-checkbox {
+.export-label, .export-checkbox, .import-label, .import-checkbox {
 	font-size: 1rem;
 	margin-bottom: 1rem;
 }
 
-.export-button {
+.export-button, .import-button {
 	padding: 0.5rem 1rem;
 	margin: 0 auto;
 	border: solid 1px #353535;
@@ -448,7 +452,7 @@ a {
 	font-size: 1rem;
 }
 
-.export-button:hover {
+.export-button:hover .import-button:hover {
 	transform: translateY(-3px);
 }
 
@@ -458,14 +462,14 @@ a {
 	padding: 3rem;
 }
 
-.export-main-section {
+.export-main-section .import-main-section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex: 1 1;
 }
 
-.export-container, .admin-container {
+.export-container, .import-container, .admin-container {
 	display: flex;
 	flex-direction: row;
 	width: 100vw;

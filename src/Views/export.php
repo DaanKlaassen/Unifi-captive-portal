@@ -36,16 +36,22 @@ $rootURL = $config->getRootURL();
             </div>
 
             <div class="menu-items">
-                <a href="<?php echo $rootURL; ?>/admin">
-                    <button class="menu-item">Dashboard</button>
-                </a>
+            <a href="<?php echo $rootURL; ?>/admin">
+                <button class="menu-item">Dashboard</button>
+            </a>
+            <a href="<?php echo $rootURL; ?>/admin">
                 <button class="menu-item">Database</button>
+            </a>
+            <a href="<?php echo $rootURL; ?>/admin">
                 <button class="menu-item">Users</button>
+            </a>
+            <a href="<?php echo $rootURL; ?>/admin/import">
                 <button class="menu-item">Import</button>
-                <a href="<?php echo $rootURL; ?>/admin/export">
-                    <button class="menu-item active">Export</button>
-                </a>
-            </div>
+            </a>
+            <a href="<?php echo $rootURL; ?>/admin/export">
+                <button class="menu-item active">Export</button>
+            </a>
+        </div>  
 
             <div class="buttons-container">
                 <button class="settings">

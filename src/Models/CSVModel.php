@@ -71,6 +71,20 @@ class CSVModel
 
     public function importCSV(): void
     {
+        if (empty($data)) {
+            return;
+        }
 
+        foreach ($data as $item) {
+            if (isset($item['email'])) {
+            $user = new User();
+            $user->setEmail($item['email']);
+            // Set other properties as needed
+            $this->entityManager->persist($user);
+            echo 'User with email ' . $item['email'] . ' added.' . PHP_EOL;
+            }
+        }
+
+        $this->entityManager->flush();
     }
 }

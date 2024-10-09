@@ -14,12 +14,12 @@ class CSVController
 
     public function exportCSV()
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = file_get_contents('php://input');
 
             $CSVData = $this->CSVModel->exportCSV($data);
 
-            if($CSVData === false) {
+            if ($CSVData === false) {
                 http_response_code(400);
                 echo json_encode(['message' => 'No data to export.']);
                 return json_encode(['message' => 'No data to export.']);
@@ -39,6 +39,25 @@ class CSVController
 
     public function importCSV(): void
     {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $jsonData = file_get_contents('php://input');
+            $data = json_decode($jsonData, true);
 
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                http_response_code(400);
+                echo json_encode(['message' => 'Invalid JSON data.']);
+                return;
+            }
+
+            $result = $this->CSVModel->importCSV($data);
+
+            if ($result === false) {
+                http_response_code(500);
+                echo json_encode(['message' => 'Failed to import data.']);
+            } else {
+                http_response_code(200);
+                echo json_encode(['message' => 'Data imported successfully.']);
+            }
+        }
     }
 }

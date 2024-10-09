@@ -33,4 +33,8 @@ class PageController
     {
         include __DIR__ . '/../views/export.php';
     }
+    public function import()
+    {
+        include __DIR__ . '/../views/import.php';
+    }
 }
