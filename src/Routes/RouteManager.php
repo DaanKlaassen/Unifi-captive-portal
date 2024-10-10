@@ -6,6 +6,7 @@ use App\Controllers\CSVController;
 use App\Controllers\PageController;
 use App\Controllers\FormController;
 use App\Controllers\VerifyController;
+use App\Controllers\UserController;
 use App\Routes\Router;
 use App\Config\AppConfig;
 
@@ -38,7 +39,9 @@ class RouteManager
         $this->router->get("{$this->rootURL}/admin", PageController::class, 'admin');
         $this->router->get("{$this->rootURL}/admin/export", PageController::class, 'export');
         $this->router->get("{$this->rootURL}/admin/import", PageController::class, 'import');
+        $this->router->get("{$this->rootURL}/admin/users", PageController::class, 'users');
         $this->router->get("{$this->rootURL}/submit-form", FormController::class, 'handleFormSubmission');
+        $this->router->get("{$this->rootURL}/users", UserController::class, 'users');
         $this->router->post("{$this->rootURL}/export-csv", CSVController::class, 'exportCSV');
         $this->router->post("{$this->rootURL}/import-csv", CSVController::class, 'importCSV');
         $this->router->post("{$this->rootURL}/resend-code", VerifyController::class, 'resendCode');

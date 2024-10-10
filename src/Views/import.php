@@ -21,46 +21,9 @@ $rootURL = $config->getRootURL();
 
 <body>
     <div class="import-container">
-        <div class="sidebar">
-            <div class="user">
-                <div class="user-icon">
-                    <img src="../img/user.svg" alt="User Icon" class="user-placeholder">
-                </div>
 
-                <div class="voor-achternaam-admin">
-                    <div class="voor-achternaam">
-                        Daan <br> Klaassen
-                    </div>
-                </div>
-            </div>
+        <?php include 'sidebar.php'; ?>
 
-            <div class="menu-items">
-                <a href="<?php echo $rootURL; ?>/admin">
-                    <button class="menu-item">Dashboard</button>
-                </a>
-                <a href="<?php echo $rootURL; ?>/admin">
-                    <button class="menu-item">Database</button>
-                </a>
-                <a href="<?php echo $rootURL; ?>/admin">
-                    <button class="menu-item">Users</button>
-                </a>
-                <a href="<?php echo $rootURL; ?>/admin/import">
-                    <button class="menu-item active">Import</button>
-                </a>
-                <a href="<?php echo $rootURL; ?>/admin/export">
-                    <button class="menu-item">Export</button>
-                </a>
-            </div>
-
-            <div class="buttons-container">
-                <button class="settings">
-                    <img src="../img/settingsknop.svg" alt="settings Icon" class="settings-icon">
-                </button>
-                <button class="exit"><a href="<?php echo $rootURL; ?>/">
-                        <img src="../img/log-out.svg" alt="exit Icon" class="exit-icon"></a>
-                </button>
-            </div>
-        </div>
         <div class="import-main-section">
             <div class="import-section">
                 <h1>Importeer de database via een CSV bestand</h1>

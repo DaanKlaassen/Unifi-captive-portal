@@ -37,4 +37,8 @@ class PageController
     {
         include __DIR__ . '/../views/import.php';
     }
+    public function users()
+    {
+        include __DIR__ . '/../views/users.php';
+    }
 }

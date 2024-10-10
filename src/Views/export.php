@@ -22,63 +22,26 @@ $rootURL = $config->getRootURL();
 
 <body>
     <div class="export-container">
-        <div class="sidebar">
-            <div class="user">
-                <div class="user-icon">
-                    <img src="../img/user.svg" alt="User Icon" class="user-placeholder">
-                </div>
 
-                <div class="voor-achternaam-admin">
-                    <div class="voor-achternaam">
-                        Daan <br> Klaassen
-                    </div>
-                </div>
-            </div>
+        <?php include 'sidebar.php'; ?>
 
-            <div class="menu-items">
-            <a href="<?php echo $rootURL; ?>/admin">
-                <button class="menu-item">Dashboard</button>
-            </a>
-            <a href="<?php echo $rootURL; ?>/admin">
-                <button class="menu-item">Database</button>
-            </a>
-            <a href="<?php echo $rootURL; ?>/admin">
-                <button class="menu-item">Users</button>
-            </a>
-            <a href="<?php echo $rootURL; ?>/admin/import">
-                <button class="menu-item">Import</button>
-            </a>
-            <a href="<?php echo $rootURL; ?>/admin/export">
-                <button class="menu-item active">Export</button>
-            </a>
-        </div>  
-
-            <div class="buttons-container">
-                <button class="settings">
-                    <img src="../img/settingsknop.svg" alt="settings Icon" class="settings-icon">
-                </button>
-                <button class="exit"> <a href="<?php echo $rootURL; ?>/">
-                        <img src="../img/log-out.svg" alt="exit Icon" class="exit-icon"></a>
-                </button>
+        <div class="export-main-section">
+            <div class="export-section">
+                <h1>Exporteer de database naar een CSV bestand</h1>
+                <form id="exportForm">
+                    <label class="export-label">
+                        <input type="checkbox" name="users" value="true" class="export-checkbox"> Users
+                    </label>
+                    <label class="export-label">
+                        <input type="checkbox" name="roles" value="true" class="export-checkbox"> Roles
+                    </label>
+                    <label class="export-label">
+                        <input type="checkbox" name="userDevices" value="true" class="export-checkbox"> User Devices
+                    </label>
+                    <button type="submit" id="exportButton" class="export-button">Exporteer</button>
+                </form>
             </div>
         </div>
-    <div class="export-main-section">
-        <div class="export-section">
-            <h1>Exporteer de database naar een CSV bestand</h1>
-            <form id="exportForm">
-                <label class="export-label">
-                    <input type="checkbox" name="users" value="true" class="export-checkbox"> Users
-                </label>
-                <label class="export-label">
-                    <input type="checkbox" name="roles" value="true" class="export-checkbox"> Roles
-                </label>
-                <label class="export-label">
-                    <input type="checkbox" name="userDevices" value="true" class="export-checkbox"> User Devices
-                </label>
-                <button type="submit" id="exportButton" class="export-button">Exporteer</button>
-            </form>
-        </div>
-    </div>
     </div>
     <div class="logo">
         <img src="../img/gildedevops-logo.png" alt="GildeDevOps Logo">
