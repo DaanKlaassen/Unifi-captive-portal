@@ -13,10 +13,45 @@ class UserModel
         $this->entityManager = $entityManager;
     }
 
-    public function getUsers()
+    public function getUsers(): bool|string
     {
         $users = $this->entityManager->getRepository(User::class)->findAll();
-        return $users;
+        $roleMapping = [
+            1 => 'admin',
+            2 => 'teacher',
+            3 => 'student'
+        ];
+        $userArray = array_map(function ($user) use ($roleMapping) {
+            return [
+                'Email' => $user->getEmail(),
+                'Name' => $user->getName(),
+                'CreatedAt' => $user->getCreatedAt(),
+                'UpdatedAt' => $user->getUpdatedAt(),
+                'role' => $roleMapping[$user->getRole()->getId()] ?? 'unknown',
+                'devices' => array_map(function ($device) {
+                    return [
+                        'id' => $device->getId(),
+                        'mac' => $device->getDeviceMac(),
+                        'ip' => $device->getDeviceIp()
+                    ];
+                }, $user->getDevices()->toArray()),
+                'maxDevices' => $user->getMaxDevices(),
+                'acceptedTOU' => $user->getAcceptedTOU()
+            ];
+        }, $users);
+        return json_encode($userArray);
+    }
+
+    public function deleteUserByEmail($email)
+    {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+        if ($user) {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+            return true;
+        }
+        return false;
     }
 }
+
 ?>

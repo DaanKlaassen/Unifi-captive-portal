@@ -1,8 +1,8 @@
 <?php
+
 use App\Config\AppConfig;
 
 $config = new AppConfig();
-
 $rootURL = $config->getRootURL();
 ?>
 
@@ -18,73 +18,121 @@ $rootURL = $config->getRootURL();
 </head>
 
 <body>
-    <div class="export-container">
+<div class="export-container">
 
-        <?php include 'sidebar.php'; ?>
+    <?php include 'sidebar.php'; ?>
 
-        <div class="users-container">
-            <h1>Gebruikers</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Gebruikersnaam</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Acties</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($users)) : ?>
-                        <tr>
-                            <td colspan="4">Geen gebruikers gevonden</td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($users as $user) : ?>
-                            <tr>
-                                <td><?php echo $user->username; ?></td>
-                                <td><?php echo $user->email; ?></td>
-                                <td><?php echo $user->role; ?></td>
-                                <td>
-                                    <a href="<?php echo $rootURL; ?>/edit-user?id=<?php echo $user->id; ?>">Bewerken</a>
-                                    <a href="<?php echo $rootURL; ?>/delete-user?id=<?php echo $user->id; ?>">Verwijderen</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="logo">
-            <img src="../img/gildedevops-logo.png" alt="GildeDevOps Logo">
-        </div>
-
+    <div class="users-container">
+        <h1>Gebruikers</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Gebruikersnaam</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Devices</th>
+                <th>MaxDevices</th>
+                <th>Acties</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", (event) => {
-            console.log('DOM fully loaded and parsed');
+    <div class="logo">
+        <img src="../img/gildedevops-logo.png" alt="GildeDevOps Logo">
+    </div>
 
-            const users = <?php echo json_encode($users); ?>;
-            console.log(users); // Additional check if users are coming through
+</div>
 
-            const table = document.querySelector('table tbody');
-            table.innerHTML = '';
-            users.forEach(user => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${user.username}</td>
-                    <td>${user.email}</td>
-                    <td>${user.role}</td>
-                    <td>
-                        <a href="<?php echo $rootURL; ?>/edit-user?id=${user.id}">Bewerken</a>
-                        <a href="<?php echo $rootURL; ?>/delete-user?id=${user.id}">Verwijderen</a>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        });
-    </script>
+<script>
+    function deleteUser(email) {
+        const rootURL = "<?php echo $rootURL; ?>";
+
+        // Show a confirmation dialog
+        if (confirm('Are you sure you want to delete this user?')) {
+            fetch(`${rootURL}/delete-user?id=${email}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        location.reload();
+                    } else {
+                        console.error('Error:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error deleting user:', error));
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+        console.log('DOM fully loaded and parsed');
+
+        const rootURL = "<?php echo $rootURL; ?>";
+
+        fetch(`${rootURL}/users`)
+            .then(response => response.text()) // Fetch the raw response as text
+            .then(text => {
+                console.log('Raw response from /users:', text); // Log the raw string response
+
+                let users;
+
+                try {
+                    users = JSON.parse(text); // Parse the stringified JSON into a valid object
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                    return;
+                }
+
+                console.log('Parsed JSON from /users:', users); // Log the parsed JSON
+
+                if (Array.isArray(users)) {
+                    const tableBody = document.querySelector('table tbody');
+                    tableBody.innerHTML = ''; // Clear existing rows
+
+                    users.forEach(user => {
+
+                        const row = document.createElement('tr');
+
+                        const usernameCell = document.createElement('td');
+                        usernameCell.textContent = user.Name; // Updated key
+                        row.appendChild(usernameCell);
+
+                        const emailCell = document.createElement('td');
+                        emailCell.textContent = user.Email; // Updated key
+                        row.appendChild(emailCell);
+
+                        const roleCell = document.createElement('td');
+                        roleCell.textContent = user.role;
+                        row.appendChild(roleCell);
+
+                        const devicesCell = document.createElement('td');
+                        devicesCell.textContent = user.devices.length;
+                        row.appendChild(devicesCell);
+
+                        const maxDevicesCell = document.createElement('td');
+                        maxDevicesCell.textContent = user.maxDevices;
+                        row.appendChild(maxDevicesCell);
+
+                        const actionsCell = document.createElement('td');
+                        actionsCell.innerHTML = `
+                        <a href="${rootURL}/edit-user?id=${user.Email}">Bewerken</a>
+                        <a href="#" onclick="deleteUser('${user.Email}')">Verwijderen</a>
+                    `;
+                        row.appendChild(actionsCell);
+
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    console.error('Expected an array but got:', users);
+                }
+            })
+            .catch(error => console.error('Error fetching users:', error));
+    });
+</script>
 </body>
 
 </html>

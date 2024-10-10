@@ -13,6 +13,11 @@ class Router
         $this->routes['GET'][$route] = [$controller, $method];
     }
 
+    public function delete($route, $controller, $method)
+    {
+        $this->routes['DELETE'][$route] = [$controller, $method];
+    }
+
     public function post($route, $controller, $method)
     {
         $this->routes['POST'][$route] = [$controller, $method];
