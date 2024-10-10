@@ -72,6 +72,20 @@
     </div>
 
     <script>
+        const bewerken = document.getElementById('bewerken');
+        const bewerkenId = document.getElementById('bewerken-id');
+        const bewerkenEmail = document.getElementById('bewerken-email');
+        const bewerkenNaam = document.getElementById('bewerken-naam');
+        const bewerkenRol = document.getElementById('bewerken-rol');
+        const bewerkenCreatedAt = document.getElementById('bewerken-created-at');
+        const bewerkenUpdatedAt = document.getElementById('bewerken-updated-at');
+        const bewerkenTou = document.getElementById('bewerken-tou');
+        const bewerkenMaxDevices = document.getElementById('bewerken-max-devices');
+        const bewerkenDevices = document.getElementById('bewerken-devices');
+        const bewerkenDevicesid = document.getElementById('bewerken-devices-id');
+        const bewerkenDevicesmac = document.getElementById('bewerken-devices-mac');
+        const bewerkenDevicesip = document.getElementById('bewerken-devices-ip');
+
         function closeBewerken() {
             const bewerken = document.getElementById('bewerken');
             bewerken.style.display = 'none';
@@ -79,31 +93,35 @@
 
         function editUser(user) {
             console.log(user);
-            const bewerken = document.getElementById('bewerken');
-            const bewerkenId = document.getElementById('bewerken-id');
-            const bewerkenEmail = document.getElementById('bewerken-email');
-            const bewerkenNaam = document.getElementById('bewerken-naam');
-            const bewerkenRol = document.getElementById('bewerken-rol');
-            const bewerkenCreatedAt = document.getElementById('bewerken-created-at');
-            const bewerkenUpdatedAt = document.getElementById('bewerken-updated-at');
-            const bewerkenTou = document.getElementById('bewerken-tou');
-            const bewerkenMaxDevices = document.getElementById('bewerken-max-devices');
-            const bewerkenDevices = document.getElementById('bewerken-devices');
-            const bewerkenDevicesid = document.getElementById('bewerken-devices-id');
-            const bewerkenDevicesmac = document.getElementById('bewerken-devices-mac');
-            const bewerkenDevicesip = document.getElementById('bewerken-devices-ip');
 
             console.log(user);
             bewerkenId.value = user.UUID;
             bewerkenEmail.value = user.Email;
             bewerkenNaam.value = user.Name;
             bewerkenRol.value = user.role;
-            bewerkenCreatedAt.value = user.CreatedAt;
-            bewerkenUpdatedAt.value = user.UpdatedAt;
+            const createdAtDate = new Date(user.CreatedAt);
+            const updatedAtDate = new Date(user.UpdatedAt);
+
+            bewerkenCreatedAt.value = createdAtDate.toLocaleDateString('nl-NL', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            bewerkenUpdatedAt.value = updatedAtDate.toLocaleDateString('nl-NL', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
             bewerkenTou.value = user.acceptedTOU;
             bewerkenMaxDevices.value = user.maxDevices;
             bewerkenDevices.value = user.devices.length;
             bewerkenDevices.innerHTML = ''; // Clear existing device inputs
+
+            if (user.devices.length === 0) {
+                const noDevicesLabel = document.createElement('label');
+                noDevicesLabel.textContent = 'No devices found';
+                bewerkenDevices.appendChild(noDevicesLabel);
+            }
 
             for (let i = 0; i < user.devices.length; i++) {
                 const device = user.devices[i]; // Define the device variable
