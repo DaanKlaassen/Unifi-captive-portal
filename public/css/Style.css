@@ -350,7 +350,7 @@ a {
 	border-right: transparent;
 	font-size: 1.1rem;
 	color: white;
-  }
+}
 
 .menu-item:hover {
 	background-color: rgba(0, 0, 0, 0.36);
@@ -381,7 +381,8 @@ a {
 	margin-left: 10px;
 }
 
-.settings, .exit {
+.settings,
+.exit {
 	position: absolute;
 	bottom: 50px;
 	left: 20px;
@@ -405,7 +406,7 @@ a {
 	cursor: pointer;
 }
 
-.settings img{
+.settings img {
 	width: 25px;
 }
 
@@ -427,7 +428,8 @@ a {
 	background-color: rgba(0, 0, 0, 0.36);
 }
 
-.export-section, .import-section{
+.export-section,
+.import-section {
 	display: flex;
 	flex-direction: column;
 	padding: 3rem;
@@ -436,12 +438,16 @@ a {
 	border-radius: 10px;
 }
 
-.export-label, .export-checkbox, .import-label, .import-checkbox {
+.export-label,
+.export-checkbox,
+.import-label,
+.import-checkbox {
 	font-size: 1rem;
 	margin-bottom: 1rem;
 }
 
-.export-button, .import-button {
+.export-button,
+.import-button {
 	padding: 0.5rem 1rem;
 	margin: 0 auto;
 	border: solid 1px #353535;
@@ -452,7 +458,8 @@ a {
 	font-size: 1rem;
 }
 
-.export-button:hover, .import-button:hover {
+.export-button:hover,
+.import-button:hover {
 	transform: translateY(-3px);
 }
 
@@ -462,16 +469,36 @@ a {
 	padding: 3rem;
 }
 
-.export-main-section, .import-main-section {
+.export-main-section,
+.import-main-section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex: 1 1;
 }
 
-.export-container, .import-container, .admin-container {
+.export-container,
+.import-container,
+.admin-container {
 	display: flex;
 	flex-direction: row;
 	width: 100vw;
 	height: 100vh;
+}
+
+.import-file {
+	width: 100%;
+	margin-bottom: 6rem;
+}
+
+input::file-selector-button {
+	background-color: transparent;
+	color: #000;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	cursor: pointer;
+	border: 1px solid #000;
+	border-radius: 4px;
+	margin-right: 50px;
+	
 }
