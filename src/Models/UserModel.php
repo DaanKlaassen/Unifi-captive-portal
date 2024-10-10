@@ -23,6 +23,7 @@ class UserModel
         ];
         $userArray = array_map(function ($user) use ($roleMapping) {
             return [
+                'UUID' => $user->getId(),
                 'Email' => $user->getEmail(),
                 'Name' => $user->getName(),
                 'CreatedAt' => $user->getCreatedAt(),

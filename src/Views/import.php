@@ -59,14 +59,14 @@ $rootURL = $config->getRootURL();
                     const csvData = event.target.result;
                     const lines = csvData.split('\r\n');
                     const result = [];
-                    const headers = lines[0].split(',');
+                    const headers = lines[0].split(',').map(header => header.trim());
 
                     for (let i = 1; i < lines.length; i++) {
                         const obj = {};
                         const currentline = lines[i].split(',');
 
                         for (let j = 0; j < headers.length; j++) {
-                            obj[headers[j]] = currentline[j];
+                            obj[headers[j]] = currentline[j] ? currentline[j].trim() : '';
                         }
                         result.push(obj);
                     }
