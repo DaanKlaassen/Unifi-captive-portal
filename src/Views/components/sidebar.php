@@ -26,7 +26,6 @@ $pathnames = explode('/', $_SERVER['REQUEST_URI']);
         <?php
         $menuItems = [
             'Dashboard' => '/admin',
-            'Database' => '/admin/database',
             'Gebruikers' => '/admin/users',
             'Import' => '/admin/import',
             'Export' => '/admin/export'
@@ -47,7 +46,7 @@ $pathnames = explode('/', $_SERVER['REQUEST_URI']);
         <button class="settings">
             <img src="../img/settingsknop.svg" alt="settings Icon" class="settings-icon">
         </button>
-        <button class="exit"> <a href="<?php echo $rootURL; ?>/">
+        <button class="exit"><a href="<?php echo $rootURL; ?>/">
                 <img src="../img/log-out.svg" alt="exit Icon" class="exit-icon"></a>
         </button>
     </div>

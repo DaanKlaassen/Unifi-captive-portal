@@ -576,6 +576,7 @@ input::file-selector-button {
 	border-radius: 4px;
 	padding: 12px;
 	margin-bottom: 16px;
+	position: relative;
 }
 
 .device-container label {
@@ -669,7 +670,7 @@ td a:hover {
 	max-height: 550px;
 	height: auto !important;
   }
-  
+
   .users-container h1 {
 	font-size: 28px;
 	margin-bottom: 20px;

@@ -22,7 +22,7 @@ $rootURL = $config->getRootURL();
 <body>
     <div class="import-container">
 
-        <?php include 'sidebar.php'; ?>
+        <?php include 'components/sidebar.php'; ?>
 
         <div class="import-main-section">
             <div class="import-section">

@@ -11,7 +11,7 @@
 <body>
     <div class="export-container">
 
-        <?php include 'sidebar.php'; ?>
+        <?php include 'components/sidebar.php'; ?>
 
         <div class="users-container">
             <h1>Gebruikers</h1>
