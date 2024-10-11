@@ -339,7 +339,7 @@ a {
 .menu-item {
 	padding: 15px;
 	cursor: pointer;
-	border-top: 12px solid white;
+	border-top: 1px solid white;
 	width: 200px;
 	background-color: transparent;
 	border-left: transparent;
@@ -672,4 +672,20 @@ td a:hover {
 	margin-bottom: 20px;
 	color: #333;
 	text-align: center;
+  }
+
+  .search-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+  }
+
+  .search-container img {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	right: 10px;
+	top: 37%;
+	transform: translateY(-50%);
   }
