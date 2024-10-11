@@ -430,7 +430,6 @@ a {
 	flex-direction: column;
 	padding: 3rem;
 	background-color: #fff;
-	height: 250px;
 	border-radius: 10px;
 }
 
@@ -440,6 +439,22 @@ a {
 .import-checkbox {
 	font-size: 1rem;
 	margin-bottom: 1rem;
+}
+
+.import-info {
+	margin-bottom: 1rem;
+	color: #555555;
+	max-height: 200px;
+	overflow-y: auto;
+	width: 100%;
+	min-height: 140px;
+	border: 1px solid #ccc;
+	font-family: Consolas, monospace;
+}
+
+.import-info p {
+	text-align: left;
+	margin: 0;
 }
 
 .export-button,
@@ -452,6 +467,11 @@ a {
 	background-color: transparent;
 	color: #050505;
 	font-size: 1rem;
+}
+
+.import-button:disabled, .export-button:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
 }
 
 .export-button:hover,
@@ -484,7 +504,7 @@ a {
 
 .import-file {
 	width: 100%;
-	margin-bottom: 6rem;
+	margin-bottom: 1rem;
 }
 
 input::file-selector-button {

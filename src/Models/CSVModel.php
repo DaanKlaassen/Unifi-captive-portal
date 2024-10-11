@@ -76,13 +76,14 @@ class CSVModel
         }
 
         $errorData = [];
+        $successData = [];
 
         foreach ($data as $item) {
             $item = array_map('trim', $item);
             if (isset($item['email'], $item['maxDevices'], $item['name']) && $item['email'] !== "" && $item['maxDevices'] !== "" && $item['name'] !== "") {
                 $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $item['email']]);
                 if ($existingUser) {
-                    $errorData[] = "User with email " . $item['email'] . " already exists.";
+                    $successData[] = "User with email " . $item['email'] . " already exists.";
                     continue;
                 }
 
@@ -97,20 +98,20 @@ class CSVModel
                 $user->setMaxDevices(intval($item['maxDevices']));
                 // Set other properties as needed
                 $this->entityManager->persist($user);
-                $errorData[] = "User with email " . $item['email'] . " added.";
+                $successData[] = "User with email " . $item['email'] . " added.";
             } else {
                 if($item['email'] === "") {
                     continue;
                 } else {
-                    $errorData[] = "Invalid data for user with email " . $item['email'];
+                    $errorData[] = "An email is required to add a user.";
                 }
             }
         }
 
         $this->entityManager->flush();
-        if(empty($errorData)) {
-            return true;
+        if(!empty($errorData)) {
+            return json_encode(['error' => json_encode($errorData)]);
         }
-        return json_encode($errorData);
+        return json_encode(['success' => json_encode($successData)]);
     }
 }
