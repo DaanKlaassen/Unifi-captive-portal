@@ -38,7 +38,7 @@ $userData = [
         'email' => 'daan.klaassen@student.gildeopleidingen.nl',
         'devices' => 2,
         'maxDevices' => 2,
-        'role' => 'student',
+        'role' => 'admin',
         'acceptedTOU' => true
     ],
     [
