@@ -41,4 +41,8 @@ class PageController
     {
         include __DIR__ . '/../views/users.php';
     }
+    public function createUser()
+    {
+        include __DIR__ . '/../views/create-user.php';
+    }
 }

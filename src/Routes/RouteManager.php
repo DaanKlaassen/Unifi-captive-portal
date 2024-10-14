@@ -41,6 +41,7 @@ class RouteManager
         $this->router->get("{$this->rootURL}/admin/import", PageController::class, 'import');
         $this->router->get("{$this->rootURL}/admin/users", PageController::class, 'users');
         $this->router->get("{$this->rootURL}/submit-form", FormController::class, 'handleFormSubmission');
+        $this->router->get("{$this->rootURL}/admin/create-user", PageController::class, 'createUser');
         $this->router->get("{$this->rootURL}/users", UserController::class, 'users');
         $this->router->post("{$this->rootURL}/export-csv", CSVController::class, 'exportCSV');
         $this->router->post("{$this->rootURL}/import-csv", CSVController::class, 'importCSV');

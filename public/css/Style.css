@@ -439,6 +439,20 @@ a {
 .import-checkbox {
 	font-size: 1rem;
 	margin-bottom: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.createUserForm {
+	display: flex;
+	flex-direction: column;
+	background-color: #ffffff;
+	border-radius: 8px;
+	padding: 24px;
+	width: 400px;
+	max-width: 90%;
+	max-height: 80vh;
 }
 
 .import-info {
@@ -503,7 +517,8 @@ a {
 }
 
 .import-file {
-	width: 100%;
+	width: auto !important;
+	padding: 0.5rem;
 	margin-bottom: 1rem;
 }
 
