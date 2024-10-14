@@ -1,3 +1,12 @@
+<?php
+
+use App\Config\AppConfig;
+
+$config = new AppConfig();
+
+$rootURL = $config->getRootURL();
+?>
+
 <html lang="en">
 
 <head>
@@ -9,35 +18,41 @@
 </head>
 
 <body>
-<div class="export-container">
+    <div class="export-container">
 
-    <?php include 'components/sidebar.php'; ?>
+        <?php include 'components/sidebar.php'; ?>
 
-    <div class="users-container">
-        <h1>Gebruikers</h1>
+        <div class="users-container">
+            <h1>Gebruikers</h1>
 
-        <!-- Search bar -->
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Zoek op naam, email of rol (@rol)">
-            <img src="../img/search-icon.svg" alt="search icon">
+            <!-- Search bar -->
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Zoek op naam, email of rol (@rol)">
+                <img src="../img/search-icon.svg" alt="search icon">
+            </div>
+
+            <button id="bulk-delete-btn" style="display: inline-flex;" onclick="bulkDelete()">
+                <img src="../img/delete.svg" alt="delete Icon" class="delete-icon"> <span> Delete selected </span>
+
+            </button>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"></th>
+                        <th>Gebruikersnaam</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Devices</th>
+                        <th>MaxDevices</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+            </table>
         </div>
-
-        <table>
-            <thead>
-            <tr>
-                <th>Gebruikersnaam</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Devices</th>
-                <th>MaxDevices</th>
-                <th>Acties</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Rows will be populated by JavaScript -->
-            </tbody>
-        </table>
-    </div>
 
         <div class="bewerken" id="bewerken" style="display: none;">
             <h1>Bewerk gebruiker</h1>
@@ -93,6 +108,15 @@
         const bewerkenDevicesmac = document.getElementById('bewerken-devices-mac');
         const bewerkenDevicesip = document.getElementById('bewerken-devices-ip');
 
+        document.getElementById('select-all').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.select-user');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+
+
+
         // Function to filter users based on search input
         function searchUsers() {
             const input = document.getElementById('searchInput');
@@ -102,7 +126,7 @@
 
             for (let i = 0; i < rows.length; i++) {
                 const username = rows[i].getElementsByTagName('td')[0]; // Gebruikersnaam
-                const email = rows[i].getElementsByTagName('td')[1];    // Email
+                const email = rows[i].getElementsByTagName('td')[1]; // Email
                 if (username || email) {
                     const usernameText = username.textContent || username.innerText;
                     const emailText = email.textContent || email.innerText;
@@ -213,80 +237,138 @@
             }
         }
 
-    document.addEventListener("DOMContentLoaded", (event) => {
-        const rootURL = "<?php echo $rootURL; ?>";
-        let allUsers = [];
+        document.addEventListener("DOMContentLoaded", (event) => {
+            const rootURL = "<?php echo $rootURL; ?>";
+            let allUsers = [];
 
-        // Fetch and store all users
-        fetch(`${rootURL}/users`)
-            .then(response => response.text()) // Fetch the raw response as text
-            .then(text => {
-                try {
-                    allUsers = JSON.parse(text); // Parse the stringified JSON into a valid object
-                    renderUserTable(allUsers); // Render the user table initially with all users
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
+            // Fetch and store all users
+            fetch(`${rootURL}/users`)
+                .then(response => response.text()) // Fetch the raw response as text
+                .then(text => {
+                    try {
+                        allUsers = JSON.parse(text); // Parse the stringified JSON into a valid object
+                        renderUserTable(allUsers); // Render the user table initially with all users
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
+                    }
+                })
+                .catch(error => console.error('Error fetching users:', error));
+
+            // Event listener for the search input
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value.trim().toLowerCase();
+                if (query.startsWith('@')) {
+                    const roleQuery = query.slice(1); // Remove '@' from the search query
+                    const filteredUsers = allUsers.filter(user => user.role.toLowerCase().includes(roleQuery));
+                    renderUserTable(filteredUsers);
+                } else {
+                    const filteredUsers = allUsers.filter(user =>
+                        user.Name.toLowerCase().includes(query) || // Search by name
+                        user.Email.toLowerCase().includes(query) // Search by email
+                    );
+                    renderUserTable(filteredUsers);
                 }
-            })
-            .catch(error => console.error('Error fetching users:', error));
-
-        // Event listener for the search input
-        const searchInput = document.getElementById('search-input');
-        searchInput.addEventListener('input', function () {
-            const query = searchInput.value.trim().toLowerCase();
-            if (query.startsWith('@')) {
-                const roleQuery = query.slice(1); // Remove '@' from the search query
-                const filteredUsers = allUsers.filter(user => user.role.toLowerCase().includes(roleQuery));
-                renderUserTable(filteredUsers);
-            } else {
-                const filteredUsers = allUsers.filter(user =>
-                    user.Name.toLowerCase().includes(query) || // Search by name
-                    user.Email.toLowerCase().includes(query)   // Search by email
-                );
-                renderUserTable(filteredUsers);
-            }
+            });
         });
-    });
 
-    // Function to render the user table based on filtered users
-    function renderUserTable(users) {
-        const tableBody = document.querySelector('table tbody');
-        tableBody.innerHTML = ''; // Clear existing rows
+        function renderUserTable(users) {
+            const tableBody = document.querySelector('table tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
 
-        users.forEach(user => {
-            const row = document.createElement('tr');
+            users.forEach(user => {
+                const row = document.createElement('tr');
 
-            const usernameCell = document.createElement('td');
-            usernameCell.textContent = user.Name; // Updated key
-            row.appendChild(usernameCell);
+                // Checkbox for selecting the user
+                const checkboxCell = document.createElement('td');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.classList.add('select-user');
+                checkbox.value = user.Email; // Use email or UUID as a unique identifier
+                checkbox.addEventListener('change', function() {
+                    updateSelectAllStatus(); // Check if all checkboxes are still selected
+                });
+                checkboxCell.appendChild(checkbox);
+                row.appendChild(checkboxCell);
 
-            const emailCell = document.createElement('td');
-            emailCell.textContent = user.Email; // Updated key
-            row.appendChild(emailCell);
+                // Rest of the user data
+                const usernameCell = document.createElement('td');
+                usernameCell.textContent = user.Name;
+                row.appendChild(usernameCell);
 
-            const roleCell = document.createElement('td');
-            roleCell.textContent = user.role;
-            row.appendChild(roleCell);
+                const emailCell = document.createElement('td');
+                emailCell.textContent = user.Email;
+                row.appendChild(emailCell);
 
-            const devicesCell = document.createElement('td');
-            devicesCell.textContent = user.devices.length;
-            row.appendChild(devicesCell);
+                const roleCell = document.createElement('td');
+                roleCell.textContent = user.role;
+                row.appendChild(roleCell);
 
-            const maxDevicesCell = document.createElement('td');
-            maxDevicesCell.textContent = user.maxDevices;
-            row.appendChild(maxDevicesCell);
+                const devicesCell = document.createElement('td');
+                devicesCell.textContent = user.devices.length;
+                row.appendChild(devicesCell);
 
-            const actionsCell = document.createElement('td');
-            actionsCell.innerHTML = `
+                const maxDevicesCell = document.createElement('td');
+                maxDevicesCell.textContent = user.maxDevices;
+                row.appendChild(maxDevicesCell);
+
+                const actionsCell = document.createElement('td');
+                actionsCell.innerHTML = `
             <a href="#" onclick='editUser(${JSON.stringify(user)})'>Bewerken</a>
             <a href="#" onclick="deleteUser('${user.Email}')">Verwijderen</a>
         `;
-            row.appendChild(actionsCell);
+                row.appendChild(actionsCell);
 
-            tableBody.appendChild(row);
-        });
-    }
-</script>
+                tableBody.appendChild(row);
+            });
+        }
+
+        function updateSelectAllStatus() {
+            const selectAllCheckbox = document.getElementById('select-all');
+            const userCheckboxes = document.querySelectorAll('.select-user');
+            const allChecked = Array.from(userCheckboxes).every(checkbox => checkbox.checked);
+
+            selectAllCheckbox.checked = allChecked;
+        }
+
+
+        function bulkDelete() {
+            const selectedUsers = [];
+            const checkboxes = document.querySelectorAll('.select-user:checked');
+
+            checkboxes.forEach(checkbox => {
+                selectedUsers.push(checkbox.value); // Email or UUID of the user
+            });
+
+            if (selectedUsers.length === 0) {
+                alert('Selecteer minstens één gebruiker om te verwijderen.');
+                return;
+            }
+
+            if (confirm(`Weet je zeker dat je de geselecteerde gebruikers wilt verwijderen? (${selectedUsers.length})`)) {
+                const rootURL = "<?php echo $rootURL; ?>";
+
+                fetch(`${rootURL}/bulk-delete-users`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            emails: selectedUsers
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            location.reload();
+                        } else {
+                            console.error('Error:', data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error deleting users:', error));
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -487,7 +487,8 @@ a {
 	font-size: 1rem;
 }
 
-.import-button:disabled, .export-button:disabled {
+.import-button:disabled,
+.export-button:disabled {
 	background-color: #ccc;
 	cursor: not-allowed;
 }
@@ -706,27 +707,54 @@ td a:hover {
 	padding: 20px;
 	max-height: 550px;
 	height: auto !important;
-  }
+}
 
-  .users-container h1 {
+.users-container h1 {
 	font-size: 28px;
 	margin-bottom: 20px;
 	color: #333;
 	text-align: center;
-  }
+}
 
-  .search-container {
+.search-container {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
-  }
+}
 
-  .search-container img {
+.search-container img {
 	width: 24px;
 	height: 24px;
 	position: absolute;
 	right: 10px;
 	top: 37%;
 	transform: translateY(-50%);
-  }
+}
+
+#bulk-delete-btn {
+	padding: 0.5rem 1rem;
+	margin: 0 auto;
+	border: solid 1px #353535;
+	border-radius: 4px;
+	cursor: pointer;
+	background-color: #fff;
+	color: #050505;
+	font-size: 1rem;
+	margin-bottom: 10px;
+}
+
+#bulk-delete-btn:hover {
+	background-color: #c70000;
+	color: #f9e5e5;
+}
+
+#bulk-delete-btn:hover img {
+	fill: white;
+}
+
+.delete-icon {
+	width: 1rem;
+	margin-right: 5px;
+	fill: #000;
+}

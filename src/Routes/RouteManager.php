@@ -50,6 +50,8 @@ class RouteManager
         $this->router->post("{$this->rootURL}/process-form", VerifyController::class, 'processFormSubmission');
         $this->router->post("{$this->rootURL}/verify-code", VerifyController::class, 'verifyCode');
         $this->router->delete("{$this->rootURL}/delete-user", UserController::class, 'deleteUser');
+        $this->router->delete("{$this->rootURL}/bulk-delete-users", UserController::class, 'bulkDelete');
+
     }
 
     public function dispatch()
