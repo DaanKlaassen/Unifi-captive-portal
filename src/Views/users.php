@@ -121,9 +121,6 @@
         }
 
         function editUser(user) {
-            console.log(user);
-
-            console.log(user);
             bewerkenId.value = user.UUID;
             bewerkenEmail.value = user.Email;
             bewerkenNaam.value = user.Name;
@@ -224,11 +221,8 @@
         fetch(`${rootURL}/users`)
             .then(response => response.text()) // Fetch the raw response as text
             .then(text => {
-                console.log('Raw response from /users:', text); // Log the raw string response
-
                 try {
                     allUsers = JSON.parse(text); // Parse the stringified JSON into a valid object
-                    console.log('Parsed JSON from /users:', allUsers); // Log the parsed JSON
                     renderUserTable(allUsers); // Render the user table initially with all users
                 } catch (error) {
                     console.error('Error parsing JSON:', error);
