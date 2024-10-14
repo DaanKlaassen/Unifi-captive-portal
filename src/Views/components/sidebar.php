@@ -7,6 +7,11 @@ $config = new AppConfig();
 $rootURL = $config->getRootURL();
 
 $pathnames = explode('/', $_SERVER['REQUEST_URI']);
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+;
 ?>
 
 <div class="sidebar">
@@ -17,7 +22,7 @@ $pathnames = explode('/', $_SERVER['REQUEST_URI']);
 
         <div class="voor-achternaam-admin">
             <div class="voor-achternaam">
-                Daan <br> Klaassen
+                <?php echo $_SESSION['fullname'] ?? 'admin'?>
             </div>
         </div>
     </div>

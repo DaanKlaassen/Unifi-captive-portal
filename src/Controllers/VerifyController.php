@@ -58,6 +58,7 @@ class VerifyController
             // Check if the email isn't yet in the database and if the device count is less than put in the database
             $user = $this->checkMailModel->checkMail($fullEmail);
             $userRole = $user->getRole();
+            $name = $user->getName();
 
             if ($userRole->getId() === 1) {
                 $_SESSION['isAdmin'] = true;
@@ -85,6 +86,7 @@ class VerifyController
             $_SESSION['form_data'] = $_POST;
             $_SESSION['verified'] = false;
             $_SESSION['form_submitted'] = true;
+            $_SESSION['fullname'] = $name;
 
             // Redirect to the verify page
             header("Location: $this->rootURL/verify");
