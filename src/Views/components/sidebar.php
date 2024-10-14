@@ -26,8 +26,8 @@ $pathnames = explode('/', $_SERVER['REQUEST_URI']);
         <?php
         $menuItems = [
             'Dashboard' => '/admin',
-            'Create User' => '/admin/create-user',
             'Gebruikers' => '/admin/users',
+            'Create User' => '/admin/create-user',
             'Import' => '/admin/import',
             'Export' => '/admin/export'
         ];
