@@ -55,7 +55,52 @@ $rootURL = $config->getRootURL();
 </div>
 
 <script>
+    const createUserButton = document.getElementById("createUserButton");
+    const createUserInfo = document.getElementById("createUser-info");
 
+    document.getElementById('createUserForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        createUserButton.disabled = true;
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        const formData = new FormData(this);
+        const data = {
+            fullname: formData.get('fullname') || false,
+            email: formData.get('email') || false,
+            role: formData.get('role') || false,
+            maxDevices: formData.get('maxDevices') || false,
+        };
+
+        const p = document.createElement('p');
+        p.className = 'info';
+        p.textContent = 'Gebruiker aan het aanmaken...';
+        createUserInfo.appendChild(p);
+
+        const response = await fetch('<?php echo $rootURL; ?>/create-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        const responseData = await response.json();
+
+        if (responseData.status === 'success') {
+            const p = document.createElement('p');
+            p.className = 'success';
+            p.textContent = responseData.message;
+            createUserInfo.appendChild(p);
+        } else {
+            const p = document.createElement('p');
+            p.className = 'error';
+            p.textContent = responseData.message;
+            createUserInfo.appendChild(p);
+        }
+
+        createUserButton.disabled = false;
+    });
 </script>
 </body>
 

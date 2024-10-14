@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Entity\User;
+use App\Entity\Role;
 
 class UserModel
 {
@@ -52,6 +53,32 @@ class UserModel
             return true;
         }
         return false;
+    }
+
+    public function createUser($data)
+    {
+        $role = $this->entityManager->getRepository(Role::class)->findOneBy(['role' => strtolower($data['role'])]);
+
+        try {
+            $user = new User();
+            $user->setName($data['fullname']);
+            $user->setEmail($data['email']);
+            $user->setRole($role);
+            $user->setMaxDevices($data['maxDevices']);
+            $user->setAcceptedTOU(false);
+            $user->setCreatedAt(new \DateTime());
+            $user->setUpdatedAt(new \DateTime());
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            return ['status' => 'success', 'message' => 'User created successfully.'];
+        } catch (\Exception $e) {
+            if($e->getCode() == 19) {
+                return ['status' => 'error', 'message' => 'User already exists'];
+            } else {
+                return ['status' => 'error', 'message' => 'User could not be created.'];
+            }
+        }
+
     }
 }
 

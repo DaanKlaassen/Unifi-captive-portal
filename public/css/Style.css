@@ -444,6 +444,10 @@ a {
 	font-size: 16px;
 }
 
+.export-label {
+	border: none;
+}
+
 .createUserForm {
 	display: flex;
 	flex-direction: column;
@@ -520,6 +524,8 @@ a {
 	width: auto !important;
 	padding: 0.5rem;
 	margin-bottom: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
 input::file-selector-button {

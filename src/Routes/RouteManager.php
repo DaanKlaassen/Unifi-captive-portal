@@ -45,6 +45,7 @@ class RouteManager
         $this->router->get("{$this->rootURL}/users", UserController::class, 'users');
         $this->router->post("{$this->rootURL}/export-csv", CSVController::class, 'exportCSV');
         $this->router->post("{$this->rootURL}/import-csv", CSVController::class, 'importCSV');
+        $this->router->post("{$this->rootURL}/create-user", UserController::class, 'createUser');
         $this->router->post("{$this->rootURL}/resend-code", VerifyController::class, 'resendCode');
         $this->router->post("{$this->rootURL}/process-form", VerifyController::class, 'processFormSubmission');
         $this->router->post("{$this->rootURL}/verify-code", VerifyController::class, 'verifyCode');

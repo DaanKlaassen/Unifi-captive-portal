@@ -28,4 +28,12 @@ class UserController {
             echo json_encode(['status' => 'error', 'message' => 'User not found or could not be deleted.']);
         }
     }
+
+    public function createUser()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $result = $this->userModel->createUser($data);
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
 }
