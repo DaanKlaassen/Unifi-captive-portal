@@ -23,7 +23,7 @@ $rootURL = $config->getRootURL();
 <body>
     <div class="admin-container">
 
-        <?php include 'sidebar.php'; ?>
+        <?php include 'components/sidebar.php'; ?>
 
         <div class="admin-section">
             <h1>Dashboard</h1>

@@ -23,7 +23,7 @@ $rootURL = $config->getRootURL();
 <body>
     <div class="export-container">
 
-        <?php include 'sidebar.php'; ?>
+        <?php include 'components/sidebar.php'; ?>
 
         <div class="export-main-section">
             <div class="export-section">

@@ -59,8 +59,6 @@ input[type='text'] {
 	margin-bottom: 1rem;
 	border: 1px solid #ccc;
 	border-radius: 4px;
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 4px;
 	font-size: 16px;
 }
 
@@ -144,7 +142,7 @@ input[type='text'] {
 
 .logo {
 	position: absolute;
-	right: 0px;
+	right: 0;
 	bottom: 3px;
 	scale: 0.75;
 	pointer-events: none;
@@ -167,9 +165,7 @@ input[type='text'] {
 
 .terms-container p {
 	margin-bottom: 10px;
-	padding: 2rem;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding: 10px 2rem;
 }
 
 .close-button {
@@ -343,7 +339,7 @@ a {
 .menu-item {
 	padding: 15px;
 	cursor: pointer;
-	border-top: -12px solid white;
+	border-top: 1px solid white;
 	width: 200px;
 	background-color: transparent;
 	border-left: transparent;
@@ -434,7 +430,6 @@ a {
 	flex-direction: column;
 	padding: 3rem;
 	background-color: #fff;
-	height: 250px;
 	border-radius: 10px;
 }
 
@@ -444,6 +439,22 @@ a {
 .import-checkbox {
 	font-size: 1rem;
 	margin-bottom: 1rem;
+}
+
+.import-info {
+	margin-bottom: 1rem;
+	color: #555555;
+	max-height: 200px;
+	overflow-y: auto;
+	width: 100%;
+	min-height: 140px;
+	border: 1px solid #ccc;
+	font-family: Consolas, monospace;
+}
+
+.import-info p {
+	text-align: left;
+	margin: 0;
 }
 
 .export-button,
@@ -456,6 +467,11 @@ a {
 	background-color: transparent;
 	color: #050505;
 	font-size: 1rem;
+}
+
+.import-button:disabled, .export-button:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
 }
 
 .export-button:hover,
@@ -488,7 +504,7 @@ a {
 
 .import-file {
 	width: 100%;
-	margin-bottom: 6rem;
+	margin-bottom: 1rem;
 }
 
 input::file-selector-button {
@@ -559,7 +575,7 @@ input::file-selector-button {
 	cursor: pointer;
 	transition: background-color 0.2s;
 	flex: 1;
-	margin: 2;
+	margin: 2px;
 }
 
 .button-container {
@@ -576,6 +592,7 @@ input::file-selector-button {
 	border-radius: 4px;
 	padding: 12px;
 	margin-bottom: 16px;
+	position: relative;
 }
 
 .device-container label {
@@ -669,10 +686,26 @@ td a:hover {
 	max-height: 550px;
 	height: auto !important;
   }
-  
+
   .users-container h1 {
 	font-size: 28px;
 	margin-bottom: 20px;
 	color: #333;
 	text-align: center;
+  }
+
+  .search-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+  }
+
+  .search-container img {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	right: 10px;
+	top: 37%;
+	transform: translateY(-50%);
   }

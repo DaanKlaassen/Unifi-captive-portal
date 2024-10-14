@@ -60,11 +60,13 @@ class CSVController
 
             $result = $this->CSVModel->importCSV($data);
 
-            if ($result === true) {
+            $jsonDecoded = json_decode($result, true);
+
+            if ($jsonDecoded['success']) {
                 http_response_code(200);
-                echo json_encode(['message' => 'Data imported successfully.']);
+                echo json_encode(['message' => $result]);
                 exit();
-            } else {
+            } else if ($jsonDecoded['error']) {
                 http_response_code(500);
                 echo json_encode(['message' => "An error occurred while importing data:" . $result]);
                 exit();
