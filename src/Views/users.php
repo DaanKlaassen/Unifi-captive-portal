@@ -32,7 +32,21 @@ $rootURL = $config->getRootURL();
             </div>
 
             <button id="bulk-delete-btn" style="display: inline-flex;" onclick="bulkDelete()">
-                <img src="../img/delete.svg" alt="delete Icon" class="delete-icon"> <span> Delete selected </span>
+                <img src="../img/delete.svg" alt="delete Icon" class="delete-icon" id="delete-icon"> <span> Delete selected </span>
+            </button>
+
+            <script>
+                const deleteButton = document.getElementById('bulk-delete-btn');
+                const deleteIcon = document.getElementById('delete-icon');
+
+                deleteButton.addEventListener('mouseover', function() {
+                    deleteIcon.src = '../img/trash-gray.svg';
+                });
+
+                deleteButton.addEventListener('mouseout', function() {
+                    deleteIcon.src = '../img/delete.svg';
+                });
+            </script>
 
             </button>
 
