@@ -14,7 +14,9 @@ if (session_status() === PHP_SESSION_NONE) {
 ;
 ?>
 
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
+    <button class="collapse-button" id="collapse-button"> <img src="../img/move-horizontal.svg" alt="Collapse"> </button>
+
     <div class="user">
         <div class="user-icon">
             <img src="../img/user.svg" alt="User Icon" class="user-placeholder">
@@ -22,7 +24,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         <div class="voor-achternaam-admin">
             <div class="voor-achternaam">
-                <?php echo $_SESSION['fullname'] ?? 'admin'?>
+                <?php echo $_SESSION['fullname'] ?? 'admin' ?>
             </div>
         </div>
     </div>
@@ -52,8 +54,22 @@ if (session_status() === PHP_SESSION_NONE) {
         <button class="settings">
             <img src="../img/settingsknop.svg" alt="settings Icon" class="settings-icon">
         </button>
-        <button class="exit"><a href="<?php echo $rootURL; ?>/">
-                <img src="../img/log-out.svg" alt="exit Icon" class="exit-icon"></a>
+        <button class="exit">
+            <a href="<?php echo $rootURL; ?>/">
+                <img src="../img/log-out.svg" alt="exit Icon" class="exit-icon">
+            </a>
         </button>
     </div>
 </div>
+
+<script>
+    document.getElementById('collapse-button').addEventListener('click', function () {
+        const collapseButton = document.getElementById('collapse-button');
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('collapsed'); // Toggle the 'collapsed' class
+        collapseButton.innerHTML = sidebar.classList.contains('collapsed') 
+            ? '<img src="../img/move-horizontal-zwart.svg" alt="Expand">' 
+            : '<img src="../img/move-horizontal.svg" alt="Collapse">'; // Change the button image
+        collapseButton.style.transform = 'translateX(200px);'; // Move the button
+    });
+</script>
