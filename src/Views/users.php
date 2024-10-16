@@ -80,6 +80,7 @@ $rootURL = $config->getRootURL();
             <input type="text" id="bewerken-max-devices">
             <label for="bewerken-devices">Devices</label>
             <div id="bewerken-devices">
+                <!-- Devices will be populated by JavaScript -->
             </div>
             <div class="button-container">
                 <button onclick="updateUser()">Opslaan</button>
@@ -144,6 +145,27 @@ $rootURL = $config->getRootURL();
             bewerken.style.display = 'none';
         }
 
+        function deleteDevice(userId, deviceId) {
+            const rootURL = "<?php echo $rootURL; ?>";
+
+            // Show a confirmation dialog
+            if (confirm('Are you sure you want to delete this device?')) {
+                fetch(`${rootURL}/delete-device?userId=${userId}&deviceId=${deviceId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.success) {
+                            location.reload();
+                        } else {
+                            console.error('Error:', data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error deleting device:', error));
+            }
+        }
+
         function editUser(user) {
             bewerkenId.value = user.UUID;
             bewerkenEmail.value = user.Email;
@@ -182,6 +204,13 @@ $rootURL = $config->getRootURL();
                 const deviceLabel = document.createElement('label');
                 deviceLabel.textContent = `Device ${i + 1}`;
                 deviceContainer.appendChild(deviceLabel);
+
+                const deleteDeviceButton = document.createElement('button');
+                deleteDeviceButton.textContent = 'Verwijder';
+                deleteDeviceButton.onclick = function() {
+                    deleteDevice(user.UUID, device.id);
+                };
+                deviceContainer.appendChild(deleteDeviceButton);
 
                 const deviceIdLabel = document.createElement('label');
                 deviceIdLabel.textContent = 'Device ID';

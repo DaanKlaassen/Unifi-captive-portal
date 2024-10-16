@@ -7,6 +7,7 @@ use App\Controllers\PageController;
 use App\Controllers\FormController;
 use App\Controllers\VerifyController;
 use App\Controllers\UserController;
+use App\Controllers\DeviceController;
 use App\Routes\Router;
 use App\Config\AppConfig;
 
@@ -51,6 +52,7 @@ class RouteManager
         $this->router->post("{$this->rootURL}/verify-code", VerifyController::class, 'verifyCode');
         $this->router->delete("{$this->rootURL}/delete-user", UserController::class, 'deleteUser');
         $this->router->delete("{$this->rootURL}/bulk-delete-users", UserController::class, 'bulkDelete');
+        $this->router->delete("{$this->rootURL}/delete-device", DeviceController::class, 'deleteDevice');
 
     }
 
