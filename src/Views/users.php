@@ -75,7 +75,7 @@ $rootURL = $config->getRootURL();
             <label for="bewerken-updated-at">Bijgewerkt op</label>
             <input type="text" id="bewerken-updated-at" disabled>
             <label for="bewerken-tou">Geaccepteerde TOU</label>
-            <input type="text" id="bewerken-tou">
+            <input type="text" id="bewerken-tou" disabled>
             <label for="bewerken-max-devices">MaxDevices</label>
             <input type="text" id="bewerken-max-devices">
             <label for="bewerken-devices">Devices</label>
@@ -116,7 +116,37 @@ $rootURL = $config->getRootURL();
             });
         });
 
+        function updateUser() {
+            const rootURL = "<?php echo $rootURL; ?>";
+            const userId = bewerkenId.value;
+            const email = bewerkenEmail.value;
+            const name = bewerkenNaam.value;
+            const role = bewerkenRol.value;
+            const maxDevices = bewerkenMaxDevices.value;
 
+            fetch(`${rootURL}/update-user`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId,
+                        email,
+                        name,
+                        role,
+                        maxDevices
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        location.reload();
+                    } else {
+                        console.error('Error:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error updating user:', error));
+        }
 
         // Function to filter users based on search input
         function searchUsers() {
@@ -187,7 +217,7 @@ $rootURL = $config->getRootURL();
             bewerkenTou.value = user.acceptedTOU;
             bewerkenMaxDevices.value = user.maxDevices;
             bewerkenDevices.value = user.devices.length;
-            bewerkenDevices.innerHTML = ''; // Clear existing device inputs
+            bewerkenDevices.innerHTML = '';
 
             if (user.devices.length === 0) {
                 const noDevicesLabel = document.createElement('label');

@@ -40,6 +40,14 @@ class UserController
         echo json_encode($result);
     }
 
+    public function updateUser()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $result = $this->userModel->updateUser($data);
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
+
     public function bulkDelete()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {

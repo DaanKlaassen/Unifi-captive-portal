@@ -78,7 +78,23 @@ class UserModel
                 return ['status' => 'error', 'message' => 'User could not be created.'];
             }
         }
+    }
 
+    public function updateUser($data)
+    {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $data['userId']]);
+        if ($user) {
+            $role = $this->entityManager->getRepository(Role::class)->findOneBy(['role' => strtolower($data['role'])]);
+            $user->setEmail($data['email']);
+            $user->setName($data['name']);
+            $user->setRole($role);
+            $user->setMaxDevices($data['maxDevices']);
+            $user->setUpdatedAt(new \DateTime());
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            return ['status' => 'success', 'message' => 'User updated successfully.'];
+        }
+        return ['status' => 'error', 'message' => 'User not found or could not be updated.'];
     }
 }
 
