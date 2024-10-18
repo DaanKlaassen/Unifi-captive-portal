@@ -37,7 +37,7 @@ $rootURL = $config->getRootURL();
                 <label for="role" class="export-label"> Rol
                 </label>
                 <select name="role" class="import-file">
-                    <option value="user">User</option>
+                    <option value="student">student</option>
                     <option value="teacher">Teacher</option>
                     <option value="admin">Admin</option>
                 </select>

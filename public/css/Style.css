@@ -782,11 +782,11 @@ td a:hover {
 	cursor: pointer;
 	z-index: 10;
 	padding: 5px 10px;
-  }
+}
 
-  .collapse-button img {
+.collapse-button img {
 	width: 25px;
-  }
+}
 
 /* Adjust layout for collapsed mode */
 .menu-item {
@@ -812,3 +812,6 @@ body {
 	/* Remove margin when sidebar is collapsed */
 }
 
+.button-verbinden {
+	padding-right: 10px;
+}

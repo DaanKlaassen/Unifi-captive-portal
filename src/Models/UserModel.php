@@ -75,7 +75,7 @@ class UserModel
             if($e->getCode() == 19) {
                 return ['status' => 'error', 'message' => 'User already exists'];
             } else {
-                return ['status' => 'error', 'message' => 'User could not be created.'];
+                return ['status' => 'error', 'message' => 'User could not be created.' . $e->getMessage()];
             }
         }
     }
