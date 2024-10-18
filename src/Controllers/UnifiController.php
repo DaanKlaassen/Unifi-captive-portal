@@ -6,12 +6,15 @@ use UniFi_API\Client;
 
 use App\Config\AppConfig;
 
+use App\Models\UnifiModel;
+
 class UnifiController
 {
     private $unifiClient;
     private $loggedInClient;
     private $currentUser;
     private AppConfig $config;
+    private UnifiModel $unifiModel;
 
     public function __construct(AppConfig $config)
     {
@@ -24,6 +27,8 @@ class UnifiController
         echo $this->loggedInClient;
 
         $this->currentUser = $this->getCurrentUser();
+
+        $this->unifiModel = new UnifiModel($this->unifiClient);
     }
 
     private function getCurrentUser()
@@ -55,19 +60,27 @@ class UnifiController
         echo $this->currentUser->mac;
         return $this->currentUser->mac;
     }
+
     public function authenticateUser($macAddress, $duration, $note, $fullname)
     {
-        try {
-            $auth_result  = $this->unifiClient->authorize_guest($macAddress, $duration);
-            $getid_result = $this->unifiClient->stat_client($macAddress);
-            $user_id      = $getid_result[0]->_id;
-            $this->unifiClient->set_sta_note($user_id, $note);
-            $this->unifiClient->set_sta_name($user_id, $fullname);
-
-            echo json_encode($auth_result, JSON_PRETTY_PRINT);
-
-        } catch (\Throwable $th) {
-            return false;
+        $response = $this->unifiModel->authenticateUser($macAddress, $duration, $note, $fullname);
+        if ($response) {
+            echo json_encode(['status' => 'success', 'message' => 'User authenticated successfully.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'User could not be authenticated.']);
         }
     }
+
+    public function stat_hourly_user()
+    {
+        $hourly_users = $this->unifiModel->get_hourly_users();
+        echo json_encode($hourly_users);
+    }
+
+    public function get_all_users()
+    {
+        $all_users = $this->unifiModel->get_all_users();
+        echo json_encode($all_users);
+    }
+
 }

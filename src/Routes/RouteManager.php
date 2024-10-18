@@ -10,6 +10,7 @@ use App\Controllers\UserController;
 use App\Controllers\DeviceController;
 use App\Routes\Router;
 use App\Config\AppConfig;
+use App\Controllers\UnifiController;
 
 class RouteManager
 {
@@ -44,6 +45,8 @@ class RouteManager
         $this->router->get("{$this->rootURL}/submit-form", FormController::class, 'handleFormSubmission');
         $this->router->get("{$this->rootURL}/admin/create-user", PageController::class, 'createUser');
         $this->router->get("{$this->rootURL}/users", UserController::class, 'users');
+        $this->router->get("{$this->rootURL}/recent-users", UnifiController::class, 'stat_hourly_user');
+        $this->router->get("{$this->rootURL}/all-users", UnifiController::class, 'get_all_users');
         $this->router->post("{$this->rootURL}/export-csv", CSVController::class, 'exportCSV');
         $this->router->post("{$this->rootURL}/import-csv", CSVController::class, 'importCSV');
         $this->router->post("{$this->rootURL}/create-user", UserController::class, 'createUser');
@@ -54,7 +57,6 @@ class RouteManager
         $this->router->delete("{$this->rootURL}/delete-user", UserController::class, 'deleteUser');
         $this->router->delete("{$this->rootURL}/bulk-delete-users", UserController::class, 'bulkDelete');
         $this->router->delete("{$this->rootURL}/delete-device", DeviceController::class, 'deleteDevice');
-
     }
 
     public function dispatch()

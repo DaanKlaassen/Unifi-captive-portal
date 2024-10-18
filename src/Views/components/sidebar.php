@@ -15,11 +15,11 @@ if (session_status() === PHP_SESSION_NONE) {
 ?>
 
 <div class="sidebar" id="sidebar">
-    <button class="collapse-button" id="collapse-button"> <img src="../img/move-horizontal.svg" alt="Collapse"> </button>
+    <button class="collapse-button" id="collapse-button"> <img src="/../img/move-horizontal.svg" alt="Collapse"> </button>
 
     <div class="user">
         <div class="user-icon">
-            <img src="../img/user.svg" alt="User Icon" class="user-placeholder">
+            <img src="/../img/user.svg" alt="User Icon" class="user-placeholder">
         </div>
 
         <div class="voor-achternaam-admin">
@@ -52,11 +52,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <div class="buttons-container">
         <button class="settings">
-            <img src="../img/settingsknop.svg" alt="settings Icon" class="settings-icon">
+            <img src="/../img/settingsknop.svg" alt="settings Icon" class="settings-icon">
         </button>
         <button class="exit">
             <a href="<?php echo $rootURL; ?>/">
-                <img src="../img/log-out.svg" alt="exit Icon" class="exit-icon">
+                <img src="/../img/log-out.svg" alt="exit Icon" class="exit-icon">
             </a>
         </button>
     </div>

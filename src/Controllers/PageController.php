@@ -27,22 +27,22 @@ class PageController
     }
     public function admin()
     {
-        include __DIR__ . '/../views/admin.php';
+        include __DIR__ . '/../Views/admin.php';
     }
     public function export()
     {
-        include __DIR__ . '/../views/export.php';
+        include __DIR__ . '/../Views/export.php';
     }
     public function import()
     {
-        include __DIR__ . '/../views/import.php';
+        include __DIR__ . '/../Views/import.php';
     }
     public function users()
     {
-        include __DIR__ . '/../views/users.php';
+        include __DIR__ . '/../Views/users.php';
     }
     public function createUser()
     {
-        include __DIR__ . '/../views/create-user.php';
+        include __DIR__ . '/../Views/create-user.php';
     }
 }

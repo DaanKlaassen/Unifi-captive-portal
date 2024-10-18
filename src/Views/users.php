@@ -12,8 +12,8 @@ $rootURL = $config->getRootURL();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <title>Admin Pagina</title>
 </head>
 
@@ -25,14 +25,13 @@ $rootURL = $config->getRootURL();
         <div class="users-container">
             <h1>Gebruikers</h1>
 
-            <!-- Search bar -->
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Zoek op naam, email of rol (@rol)">
-                <img src="../img/search-icon.svg" alt="search icon">
+                <img src="/img/search-icon.svg" alt="search icon">
             </div>
 
             <button id="bulk-delete-btn" style="display: inline-flex;" onclick="bulkDelete()">
-                <img src="../img/delete.svg" alt="delete Icon" class="delete-icon" id="delete-icon"> <span> Delete selected </span>
+                <img src="/img/delete.svg" alt="delete Icon" class="delete-icon" id="delete-icon"> <span> Delete selected </span>
             </button>
 
             <script>
@@ -40,11 +39,11 @@ $rootURL = $config->getRootURL();
                 const deleteIcon = document.getElementById('delete-icon');
 
                 deleteButton.addEventListener('mouseover', function() {
-                    deleteIcon.src = '../img/trash-gray.svg';
+                    deleteIcon.src = '/img/trash-gray.svg';
                 });
 
                 deleteButton.addEventListener('mouseout', function() {
-                    deleteIcon.src = '../img/delete.svg';
+                    deleteIcon.src = '/img/delete.svg';
                 });
             </script>
 
@@ -63,7 +62,6 @@ $rootURL = $config->getRootURL();
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rows will be populated by JavaScript -->
                 </tbody>
             </table>
         </div>
@@ -94,7 +92,6 @@ $rootURL = $config->getRootURL();
             <input type="text" id="bewerken-max-devices">
             <label for="bewerken-devices">Devices</label>
             <div id="bewerken-devices">
-                <!-- Devices will be populated by JavaScript -->
             </div>
             <div class="button-container">
                 <button onclick="updateUser()">Opslaan</button>
@@ -103,7 +100,7 @@ $rootURL = $config->getRootURL();
         </div>
 
         <div class="logo">
-            <img src="../img/gildedevops-logo.png" alt="GildeDevOps Logo">
+            <img src="/img/gildedevops-logo.png" alt="GildeDevOps Logo">
         </div>
 
     </div>
