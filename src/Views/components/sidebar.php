@@ -51,9 +51,6 @@ if (session_status() === PHP_SESSION_NONE) {
     </div>
 
     <div class="buttons-container">
-        <button class="settings">
-            <img src="/../img/settingsknop.svg" alt="settings Icon" class="settings-icon">
-        </button>
         <button class="exit">
             <a href="<?php echo $rootURL; ?>/">
                 <img src="/../img/log-out.svg" alt="exit Icon" class="exit-icon">
@@ -68,8 +65,8 @@ if (session_status() === PHP_SESSION_NONE) {
         const sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('collapsed'); // Toggle the 'collapsed' class
         collapseButton.innerHTML = sidebar.classList.contains('collapsed') 
-            ? '<img src="../img/move-horizontal-zwart.svg" alt="Expand">' 
-            : '<img src="../img/move-horizontal.svg" alt="Collapse">'; // Change the button image
+            ? '<img src="/../img/move-horizontal-zwart.svg" alt="Expand">'
+            : '<img src="/../img/move-horizontal.svg" alt="Collapse">';
         collapseButton.style.transform = 'translateX(200px);'; // Move the button
     });
 </script>
