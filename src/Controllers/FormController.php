@@ -41,12 +41,22 @@ class FormController
                 // Retrieve the MAC address using the IP address
                 $macAddress = $this->unifiController->getUserMac();
 
+                if(!$macAddress) {
+                    echo "MAC address not found";
+                    exit();
+                }
+
                 try {
-                    $this->model->insertEmail($fullEmail, $domain, $macAddress, $ipAddress);
-                    header("Location: {$this->rootURL}/success");
-                    $this->unifiController->authenticateUser($macAddress, 2000, $fullEmail, $_SESSION['fullname']);
+                    $response = $this->model->insertEmail($fullEmail, $domain, $macAddress, $ipAddress);
+
+                    if($response === true) {
+                        $this->unifiController->authenticateUser($macAddress, 2000, $fullEmail, $_SESSION['fullname']);
+                        header("Location: {$this->rootURL}/success");
+                    }
+
                     exit();
                 } catch (\Exception $e) {
+                    echo $e->getMessage();
                     header("Location: {$this->rootURL}/failed");
                     exit();
                 }

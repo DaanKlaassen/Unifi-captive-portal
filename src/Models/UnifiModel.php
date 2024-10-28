@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use UniFi_API\Client;
+
 class UnifiModel
 {
     private $unifiClient;
 
-    public function __construct($unifiClient)
+    public function __construct($loggedInClient)
     {
-        $this->unifiClient = $unifiClient;
+        $this->unifiClient = $loggedInClient;
     }
 
-    public function authenticateUser($macAddress, $duration, $note, $fullname)
+    public function authenticateUser($macAddress, $duration, $note, $fullname): bool
     {
         try {
             $auth_result  = $this->unifiClient->authorize_guest($macAddress, $duration);
@@ -22,7 +24,8 @@ class UnifiModel
 
             return $auth_result;
         } catch (\Throwable $th) {
-            return false;
+            echo $th->getMessage();
+            exit();
         }
     }
 

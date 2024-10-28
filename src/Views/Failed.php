@@ -24,7 +24,7 @@ $rootURL = $config->getRootURL();
         <div class="checkmark select-none"> <img src="/img/failed.svg" alt=""></div>
         <div class="countdown select-none" id="countdown">Je word terug gestuurd over 10 seconden</div>
         <div class="manual-close" style="display:none;" id="manual-close">
-            <p>Het venster kan niet automatisch worden omgeleid. <br> <strong>Klik <a href="/" class='link'>hier</a> om
+            <p>Het venster kan niet automatisch worden omgeleid. <br> <strong>Klik <a href="<?php echo $rootURL; ?>/" class='link'>hier</a> om
                     terug te gaan naar de home pagina.</strong></p>
         </div>
     </div>
@@ -41,7 +41,7 @@ $rootURL = $config->getRootURL();
             if (seconds <= 0) {
                 clearInterval(intervalId);
                 // Try to redirect the user
-                window.location.href = '/';
+                window.location.href = '<?php echo $rootURL; ?>/';
 
                 // If the window wasn't redirected, show the manual redirect message
                 if (window.location.href.includes('<?php echo $rootURL; ?>/failed')) {

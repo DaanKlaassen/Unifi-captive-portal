@@ -57,6 +57,11 @@ class VerifyController
 
             // Check if the email isn't yet in the database and if the device count is less than put in the database
             $user = $this->checkMailModel->checkMail($fullEmail);
+
+            if(!$user) {
+                echo json_encode(['success' => false]);
+            }
+
             $userRole = $user->getRole();
             $name = $user->getName();
 

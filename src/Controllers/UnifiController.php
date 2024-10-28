@@ -10,9 +10,9 @@ use App\Models\UnifiModel;
 
 class UnifiController
 {
-    private $unifiClient;
-    private $loggedInClient;
-    private $currentUser;
+    private Client $unifiClient;
+    private int|bool $loggedInClient;
+    private mixed $currentUser;
     private AppConfig $config;
     private UnifiModel $unifiModel;
 
@@ -52,13 +52,11 @@ class UnifiController
     }
     public function getUserIp()
     {
-        echo $this->currentUser->ip;
-        return $this->currentUser->ip;
+        return $this->currentUser->ip ?? '10.35.0.37';
     }
     public function getUserMac()
     {
-        echo $this->currentUser->mac;
-        return $this->currentUser->mac;
+        return $this->currentUser->mac ?? '70:9c:d1:12:21:f4';
     }
 
     public function authenticateUser($macAddress, $duration, $note, $fullname)
