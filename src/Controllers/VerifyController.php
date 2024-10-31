@@ -59,7 +59,7 @@ class VerifyController
             $user = $this->checkMailModel->checkMail($fullEmail);
 
             if(!$user) {
-                header("Location: $this->rootURL/failed");
+                header("Location: $this->rootURL/failed?noUser=true");
                 exit();
             }
 
