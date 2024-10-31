@@ -59,7 +59,8 @@ class VerifyController
             $user = $this->checkMailModel->checkMail($fullEmail);
 
             if(!$user) {
-                echo json_encode(['success' => false]);
+                header("Location: $this->rootURL/failed");
+                exit();
             }
 
             $userRole = $user->getRole();

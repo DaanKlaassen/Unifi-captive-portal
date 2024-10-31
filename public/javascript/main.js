@@ -41,6 +41,7 @@ lucide.createIcons();
                 emailError.style.display = 'block';
                 emailError.innerHTML = 'Vul een geldig e-mailadres in.';
                 errors = true;
+                close();
             }
 
             // Validate terms checkbox
@@ -48,11 +49,13 @@ lucide.createIcons();
                 termsError.style.display = 'block';
                 termsError.innerHTML = 'Je moet akkoord gaan met de gebruikersvoorwaarden.';
                 errors = true;
+                close();
             }
 
             // Display general attention message if there are errors
             if (errors) {
                 attentionMessage.style.display = 'block';
+                close();
             } else {
                 // No errors, submit the form (or handle success)
                 this.submit();

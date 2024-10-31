@@ -34,21 +34,13 @@ sleep(1);
 // Seed users
 $userData = [
     [
-        'name' => 'Daan Klaassen',
-        'email' => 'daan.klaassen@student.gildeopleidingen.nl',
+        'name' => 'Admin',
+        'email' => 'gildeictroermond@gmail.com',
         'devices' => 2,
         'maxDevices' => 2,
         'role' => 'admin',
         'acceptedTOU' => true
-    ],
-    [
-        'name' => 'Dylan Backes',
-        'email' => 'dylan.backes@student.gildeopleidingen.nl',
-        'devices' => 2,
-        'maxDevices' => 2,
-        'role' => 'admin',
-        'acceptedTOU' => true
-    ],
+    ]
 ];
 
 // Iterate through user data

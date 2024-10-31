@@ -54,7 +54,7 @@ unset($_SESSION['form_submitted']);
             </div>
 
             <div class="terms-error" id="termsError"></div>
-
+            <div id="loading" style="display:none;">Loading</div>
             <div class="attention-message" id="attentionMessage"></div>
 
             <div class="button-container">
@@ -145,7 +145,7 @@ unset($_SESSION['form_submitted']);
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src='/javascript/main.js'></script>
-    <script src='/javascript/form-validation.js'></script>
+<!--    <script src='/javascript/form-validation.js'></script>-->
 </body>
 
 </html>
